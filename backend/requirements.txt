@@ -1,0 +1,17 @@
+# for django and restful
+#
+django<2
+djangorestframework
+django-cors-headers
+djangorestframework-jwt
+
+# for AWS Elastic Beanstalk 
+#
+psycopg2
+mako
+awsebcli
+
+pillow
+django-ckeditor
+boto3
+django-storages
