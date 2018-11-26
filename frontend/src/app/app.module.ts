@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoogleMaterialDesignModule } from "./google-material-design/google-material-design.module";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-
 // Custom
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
@@ -39,6 +38,7 @@ import { ReCaptchaModule } from 'angular2-recaptcha';
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import { RichTextEditorComponent } from './components/rich-text-editor/rich-text-editor.component';
 import { HighlightedCaseStudyComponent } from './components/highlighted-case-study/highlighted-case-study.component';
+import { Angulartics2Module } from "angulartics2";
 
 @NgModule({
 declarations: [
@@ -73,6 +73,7 @@ declarations: [
 
     // 3rd Party
     LazyLoadImageModule, ReCaptchaModule, CKEditorModule,
+    Angulartics2Module.forRoot(),
 
     // pwa
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),

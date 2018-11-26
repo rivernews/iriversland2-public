@@ -17,6 +17,8 @@ import { Location } from "@angular/common";
 import { MediaContentService } from './services/media-content.service';
 // import { SwUpdate } from '@angular/service-worker';
 
+import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -53,7 +55,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         private mediaService: MediaContentService,
 
         // private swUpdate: SwUpdate,
+        angulartics: Angulartics2GoogleGlobalSiteTag,
     ) {
+        angulartics.startTracking();
     }
 
     ngOnInit(): void {

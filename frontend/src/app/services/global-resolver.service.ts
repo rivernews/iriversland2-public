@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from "./api.service";
 
+import { Angulartics2 } from 'angulartics2';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -17,11 +19,17 @@ export class GlobalResolverService implements Resolve<any> {
     constructor(
         private http: HttpClient,
         private apiService: ApiService,
+        private angulartics2: Angulartics2,
     ) { 
     }
 
     resolve(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Observable<any> {
         this.reportVisit(routerState);
+        
+        /** google analytics */
+        let categorySuffix = (this.apiService.isLocalDev()) ? ` (localhost)`: "";
+        this.angulartics2.eventTrack.next({ action: `Visiting ${routerState.url}`, properties: { category: `routeChange${categorySuffix}`, label: `Route changed to ${routerState.url}` }});
+
         return timer(160);
     }
 

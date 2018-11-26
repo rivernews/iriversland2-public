@@ -11,6 +11,8 @@ import { ObservableMedia } from '@angular/flex-layout';
 import { ActivatedRoute } from "@angular/router";
 import { LogMessageService } from '../services/log-message.service';
 
+import { Angulartics2 } from 'angulartics2';
+
 import {
     trigger, transition, style, animate,
     query, stagger, animateChild
@@ -76,6 +78,7 @@ export class DocumentListComponent implements OnInit, OnDestroy, AfterViewInit {
 
         public responsiveChange: ObservableMedia,
         private logService: LogMessageService,
+        private angulartics2: Angulartics2,
     ) { }
 
     ngOnInit() {
@@ -187,6 +190,14 @@ export class DocumentListComponent implements OnInit, OnDestroy, AfterViewInit {
                     }
                 }
                 return false;
+            });
+
+            this.angulartics2.eventTrack.next({
+                action: `[${selectedTagTextList}]`,
+                properties: {
+                    category: `SelectTagChanged`,
+                    label: `[${selectedTagTextList}]`
+                }
             });
         }
         else {

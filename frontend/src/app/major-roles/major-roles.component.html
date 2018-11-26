@@ -83,8 +83,16 @@
         </div>
 
         <!-- Action - Get Resume -->
-        <div fxFlex align="center">
-            <a href="https://drive.google.com/file/d/1xEvp8K7oEPbUPTcelx9HrvwsTVKo-1Bs/view" target="_blank" mat-flat-button color="primary" >
+        <div fxFlex align="center"
+            angulartics2On="click" 
+            angularticsCategory="DownloadClick"
+            angularticsAction="Download Resume" 
+            angularticsLabel="User clicked to download/view resume" 
+            angularticsValue="99" 
+            [angularticsProperties]="{'custom-property': 'Fall Campaign'}">
+            <a href="https://drive.google.com/file/d/1xEvp8K7oEPbUPTcelx9HrvwsTVKo-1Bs/view" target="_blank" mat-flat-button color="primary"
+                
+             >
                 GET SHAUNG'S RESUME
             </a>
         </div>

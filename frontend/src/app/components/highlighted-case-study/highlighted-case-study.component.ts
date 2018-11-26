@@ -6,6 +6,8 @@ import { ObjectDataService } from "../../services/object-data.service";
 import { SnackBarServiceService } from "../../services/snack-bar-service.service";
 import { ResponsiveService } from '../../services/responsive.service';
 
+import { Angulartics2 } from 'angulartics2';
+
 @Component({
     selector: 'app-highlighted-case-study',
     templateUrl: './highlighted-case-study.component.html',
@@ -32,7 +34,8 @@ export class HighlightedCaseStudyComponent implements OnInit, OnDestroy {
         private barService: SnackBarServiceService,
         public responsiveService: ResponsiveService,
 
-        public el: ElementRef
+        public el: ElementRef,
+        private angulartics2: Angulartics2,
     ) { }
 
     ngOnInit() {
@@ -82,6 +85,14 @@ export class HighlightedCaseStudyComponent implements OnInit, OnDestroy {
 
             textContainer.classList.add('show-state');
             textContainer.classList.remove('hide-state');
+
+            this.angulartics2.eventTrack.next({
+                action: `${this.highlightedCaseStudy.case_study_title}`,
+                properties: {
+                    category: `Scroll`,
+                    label: `Applied shading to highlighted case study "${this.highlightedCaseStudy.case_study_title}"`
+                }
+            });
         } else {
             container.classList.remove('shaded');
             

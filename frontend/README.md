@@ -67,3 +67,8 @@ For other details for setting up, please see [the repo djangorest-angularcli-eb-
   - ...
   - You'll want to fix them by `scss` if it's not desirable.
 - That's it!
+
+### Using Google Analytics
+
+- [Use this angular adapter](https://github.com/angulartics/angulartics2)
+- [How to write Event Tracking Info](https://developers.google.com/analytics/devguides/collection/analyticsjs/events)
