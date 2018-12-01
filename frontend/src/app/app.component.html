@@ -16,7 +16,7 @@
             <button (click)="sidenav.close()" class="logo-wrapper image-background-container" routerLink="/home" mat-button fxLayout="column" fxLayoutAlign="center stretch">
                 <img class="image-background image-contain"
                 lazyLoad="https://s3.us-east-2.amazonaws.com/iriversland2-media/brands/shaungc-logo.png"
-                offset="1">
+                offset="1" alt="shaung cheng logo">
             </button>
             <a (click)="sidenav.close()" mat-button *ngFor="let link of navLinks" [routerLink]="link.routerLink" routerLinkActive #rla="routerLinkActive"
                 active="rla.isActive">
@@ -49,7 +49,7 @@
                     <button class="logo-wrapper image-background-container" routerLink="/home" mat-button fxLayout="column" fxLayoutAlign="center stretch">
                         <img class="image-background image-contain"
                         lazyLoad="https://s3.us-east-2.amazonaws.com/iriversland2-media/brands/shaungc-logo.png"
-                        offset="1">
+                        offset="1" alt="shaung cheng logo">
                     </button>
                     <span fxFlex></span>
                     <nav mat-tab-nav-bar>
