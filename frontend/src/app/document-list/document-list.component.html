@@ -1,7 +1,7 @@
 <div class="document-list-wrapper themed-actions-container" fxLayout="column" fxLayoutAlign="center stretch">
     <div fxFlex="1 0 calc(50vh)" class="image-background-container themed-action-container" fxLayout="column" fxLayoutAlign="center stretch">
 
-        <img class="image-background" [lazyLoad]="headImage.image?.url" [style.background]="'gray'" offset="999">
+        <img class="image-background" [lazyLoad]="headImage.image?.url" [style.background]="'gray'" offset="999" alt="page head image">
 
         <div class="themed-action-text-container" fxLayout="column" fxLayoutAlign="end center">
             <div class="page-section dark-theme-text" fxLayout="column" fxLayoutAlign="end stretch">
@@ -16,7 +16,7 @@
     <ng-template #cardContentsTemplate let-doc="doc">
         <div *ngIf="showCoverImage" mat-card-image class="image" #cardCoverImage [style.height]="getResponsiveCardHeight(cardCoverImage)"
             [style.background]="'lightgray'">
-            <img *ngIf="doc.coverImage" fxFlexFill [style.object-fit]="'cover'" [lazyLoad]="doc.coverImage.url" offset="999">
+            <img *ngIf="doc.coverImage" fxFlexFill [style.object-fit]="'cover'" [lazyLoad]="doc.coverImage.url" offset="999" [alt]="'cover image for ' + doc.title">
         </div>
         <mat-card-content class="doc-card-content" fxFlexFill fxLayout="column" fxLayoutAlign="space-between stretch" >
             <div >

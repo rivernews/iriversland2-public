@@ -47,7 +47,7 @@
                 <div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
                     <div class="image-background-container" [style.height]="'80px'" fxFlex>
                         <img class="image-background" [lazyLoad]="edu.media.url" offset="999"
-                            [style.object-fit]="'contain'" ngStyle.gt-sm="object-position: 0% 50%">
+                            [style.object-fit]="'contain'" ngStyle.gt-sm="object-position: 0% 50%" [alt]="'logo for ' + edu.fullName">
                     </div>
                 </div>
                 <h2 [style.font-family]="'Roboto Condensed'" >
@@ -73,7 +73,7 @@
 
                 <div class="image-background-container" fxFlex>
                     <img class="image-background" [lazyLoad]="tool.url" offset="999"
-                        [style.object-fit]="'contain'"  >
+                        [style.object-fit]="'contain'" [alt]="'logo for ' + tool.name" >
                 </div>
                 <div fxFlex="20%">
                     <span class="mat-caption" align="center">{{ tool.name }}</span>

@@ -129,19 +129,19 @@
         <div *ngFor="let color of ['', 'primary', 'accent', 'warn']" fxFlexFill fxLayout="row wrap" fxLayoutAlign="space-around stretch"
             [style.margin]="'10px 0'">
             <div>
-                <a [color]="color" mat-icon-button>
+                <a [color]="color" mat-icon-button aria-label="icon button example">
                     <mat-icon fontSet="material-icons">account_circle</mat-icon>
                 </a>
                 <span class="mat-body-1">mat-icon-button</span>
             </div>
             <div>
-                <a [color]="color" mat-fab>
+                <a [color]="color" mat-fab aria-label="fab button example">
                     <mat-icon fontSet="material-icons">account_circle</mat-icon>
                 </a>
                 <span class="mat-body-1">mat-fab</span>
             </div>
             <div>
-                <a [color]="color" mat-mini-fab>
+                <a [color]="color" mat-mini-fab aria-label="mini fab button example">
                     <mat-icon fontSet="material-icons">account_circle</mat-icon>
                 </a>
                 <span class="mat-body-1">mat-mini-fab</span>
