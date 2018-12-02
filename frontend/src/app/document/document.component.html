@@ -1,14 +1,8 @@
 <div class="doc-component-container" fxLayout="row wrap" fxLayoutAlign="center" [style.background]="'whitesmoke'" [style.max-width]="'100vw'">
 
-    <div fxFlex="100%" [style.min-height]="'50vh'" class="relative-corner-control-container doc-header-container">
-        <div *ngIf="isLogin && document.content" class="relative-right-bottom-control">
-            <button mat-mini-fab [disabled]="isSubmitting" (click)="onDeleteClick()">
-                <mat-icon fontSet="material-icons">delete</mat-icon>
-            </button>
-        </div>
-
+    <div fxFlex="100%" [style.min-height]="'50vh'" class="relative-corner-control-container">
         <!-- Doc Header -->
-        <div fxFlexFill fxLayout="row" fxLayoutAlign="space-between end" [style.background-color]="'silver'">
+        <div class="doc-header-container" fxFlexFill fxLayout="row" fxLayoutAlign="space-between end" [style.background-color]="'silver'">
             <span fxFlex="10%"></span>
             <div fxFlex fxLayout="column" fxLayoutAlign="end stretch" [style.max-width]="'100vw'">
                 <div *ngIf="isLogin && document.content" fxFlexFill fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between" fxLayout.lt-md="column">
@@ -52,6 +46,11 @@
                 </ng-container>
             </div>
             <span fxFlex="10%"></span>
+        </div>
+        <div *ngIf="isLogin && document.content" class="relative-right-bottom-control">
+            <button mat-mini-fab [disabled]="isSubmitting" (click)="onDeleteClick()">
+                <mat-icon fontSet="material-icons">delete</mat-icon>
+            </button>
         </div>
     </div>
 

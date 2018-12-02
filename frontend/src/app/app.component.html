@@ -38,8 +38,8 @@
 
 
     <mat-sidenav-content>
-        <div class="right-top-control">
-            <button fxHide.gt-sm mat-fab (click)="sidenav.toggle()">
+        <div *ngIf="currentRoutePathList" [class]="(currentRoutePathList.length > 2 && isLogin) ? 'left-bottom-control' : 'right-bottom-control'">
+            <button fxHide.gt-sm mat-mini-fab (click)="sidenav.toggle()" aria-label="menu toggle button (only for mobile phone)">
                 <mat-icon fontSet="material-icons">menu</mat-icon>
             </button>
         </div>
@@ -73,13 +73,8 @@
         </div>
         <div *ngIf="isLocalDev" class="responsive-indicator"></div>
 
-        <div class="left-bottom-control">
-            <a *ngIf="false" mat-fab routerLink="/login">
-                <mat-icon fontSet="material-icons">account_circle</mat-icon>
-            </a>
-        </div>
-        <div class="left-bottom-control">
-            <button *ngIf="isLogin" mat-mini-fab (click)="logout()">
+        <div class="right-top-control">
+            <button *ngIf="isLogin" mat-mini-fab (click)="logout()" aria-label="">
                 <mat-icon fontSet="material-icons">eject</mat-icon>
             </button>
         </div>

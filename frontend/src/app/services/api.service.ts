@@ -59,7 +59,7 @@ export class ApiService {
         let queryUrl = (absolutePath) ? absolutePath : `${this.getApiBaseUrl()}${path}/`;
         if (relativePath) queryUrl = `${this.getBaseUrl()}${relativePath}/`;
 
-        if (this.DEBUG) console.log('GET:', queryUrl, token, params);
+        if (this.DEBUG && this.isLocalDev()) console.log('GET:', queryUrl, token, params);
         return this.http.get(queryUrl, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

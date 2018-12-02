@@ -1,4 +1,4 @@
-<mat-slide-toggle #matSwitch [checked]="checkedValue" (change)="switchChanged($event)">
+<mat-slide-toggle class="switch-container" #matSwitch [checked]="checkedValue" (change)="switchChanged($event)">
     <span *ngIf="checkedValue">
         <mat-icon [fontSet]="checkedLabel?.iconFontSet">{{checkedLabel?.iconLigature}}</mat-icon> {{checkedLabel?.text}}
     </span>

@@ -47,8 +47,11 @@ $ckeditor-first-level-container-selector: ".ck-content";
 }
 
 ::ng-deep .doc-component-container {
-
     @include enable-hardware-accelerated-transform();
+
+    .doc-header-container {
+        padding-top: 20px;
+    }
 
     // Adjust image showing in editor
     div.doc-body-container {

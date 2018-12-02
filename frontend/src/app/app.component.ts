@@ -7,7 +7,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 
-import { Router, ResolveStart, ResolveEnd } from '@angular/router';
+import { Router, ResolveStart, ResolveEnd, NavigationEnd } from '@angular/router';
 import { UserService } from './services/user.service';
 import { ApiService } from "./services/api.service";
 import { ObjectDataService } from "./services/object-data.service";
@@ -31,10 +31,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public navLinks = [];
 
-    appBackgroundColor = 'lightgray';
+    public appBackgroundColor = 'lightgray';
 
-    isLogin: boolean;
+    public isLogin: boolean;
     public isLocalDev: boolean = false;
+    public currentRoutePathList: Array<string>;
 
     /*
     * Access Child DOM Elements
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(
         private router: Router,
+
         private userService: UserService,
         private apiSevice: ApiService,
         private objectService: ObjectDataService,
@@ -86,6 +88,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
                 else if (e instanceof ResolveEnd) {
                     this.routerFooterWrapperElement.scrollIntoView({ block: 'start', behavior: 'instant' });
                     this.pageFadeIn();
+                    
+                }
+                else if (e instanceof NavigationEnd) {
+                    this.currentRoutePathList = this.router.routerState.snapshot.url.split('/');
                 }
             }
         ));
