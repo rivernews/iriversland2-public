@@ -16,7 +16,7 @@
 
             <!-- submit button -->
             <div *ngIf="isLogin" class="relative-right-bottom-control">
-                <button *ngIf="true" mat-mini-fab [disabled]="isSubmitting" (click)="onSubmitClick(highlightedCaseStudy)">
+                <button *ngIf="true" mat-mini-fab [disabled]="isSubmitting" (click)="onSubmitClick(highlightedCaseStudy)" aria-label="submit button">
                     <mat-icon fontSet="material-icons">send</mat-icon>
                 </button>
             </div>
