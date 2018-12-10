@@ -47,17 +47,17 @@
             </mat-chip-list>
         </mat-form-field>
 
-        <div class="document-cards-container" @docListAnRef cdkDropList (cdkDropListDropped)="drop($event)">
+        <div class="document-cards-container" @docListAnRef >
             <!-- Cards layout for case studies -->
             <ng-container *ngIf="apiQueryEndPoint == 'case-studies'" >
-                <mat-card class="document-card" @docCardAnRef *ngFor="let document of filteredDocuments" routerLink="{{document.id}}/" matRipple cdkDrag>
+                <mat-card class="document-card" @docCardAnRef *ngFor="let document of filteredDocuments" routerLink="{{document.id}}/" matRipple >
                     <ng-container *ngTemplateOutlet="cardContentsTemplate; context:{ doc: document }"></ng-container>
                 </mat-card>
             </ng-container>
 
             <!-- Cards layout for posts -->
             <ng-container *ngIf="apiQueryEndPoint == 'posts'" >
-                <mat-card class="document-card" @docCardAnRef *ngFor="let document of filteredDocuments" routerLink="{{document.id}}/" matRipple cdkDrag>
+                <mat-card class="document-card" @docCardAnRef *ngFor="let document of filteredDocuments" routerLink="{{document.id}}/" matRipple >
                     <ng-container *ngTemplateOutlet="cardContentsTemplate; context: { doc: document }"></ng-container>
                 </mat-card>
             </ng-container>

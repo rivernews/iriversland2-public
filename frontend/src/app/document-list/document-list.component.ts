@@ -103,10 +103,6 @@ export class DocumentListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.subscriptions.unsubscribe();
     }
 
-    public drop($event) {
-        // console.log('dropped', $event);
-    }
-
     public getResponsiveCardHeight(target) {
         let heightValue = target.offsetWidth * 3 / 4.5;
         return `${heightValue}px`;
@@ -156,6 +152,9 @@ export class DocumentListComponent implements OnInit, OnDestroy, AfterViewInit {
                 });
             });
             await this.objDataService.setCollectiveTagList(this.apiQueryEndPoint, this.collectiveTagList);
+        } else {
+            console.log("not go to branch since it's length is not zero")
+            this.tagSetListChanges(null);
         }
     }
 

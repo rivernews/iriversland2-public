@@ -12,7 +12,7 @@ export class ApiService {
     // http options used for making API calls
     private httpOptions: any;
 
-    private DEBUG: boolean = true;
+    private DEBUG: boolean = false;
 
     constructor(
         private http: HttpClient,
