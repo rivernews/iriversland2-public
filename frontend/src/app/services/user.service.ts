@@ -135,7 +135,6 @@ export class UserService {
         this.user = null;
         this.isLoginStatusAndChange.next(false);
         this.barService.popUpMessage("Logout", 2000);
-        // TODO: reset all cached data
     }
 
     public kickOut() {

@@ -253,8 +253,6 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 
 # Email settings
-# TODO: make it secret
-
 SERVER_EMAIL = ''
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ['EMAIL_HOST']

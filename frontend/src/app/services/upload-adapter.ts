@@ -4,6 +4,7 @@ import { ApiService } from './api.service';
 import { SnackBarServiceService } from "./snack-bar-service.service";
 import { ObjectDataService } from "./object-data.service";
 
+// TODO: consider moving this logic to ckeditor.js
 export class UploadAdapter {
     loader: any;
     documemnt: any;

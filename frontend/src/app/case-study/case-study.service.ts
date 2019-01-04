@@ -42,7 +42,7 @@ export class CaseStudyService {
      * 
      */
 
-    // TODO: better sanitize all rich text field in backend. But by default Angular will handle and strip.
+    // TODO: better sanitize all rich text field in backend. But by default Angular & Ckeditor5 will handle and strip.
     sanitizeCaseStudy(caseStudyData) {
         caseStudyData.content = this.sanitizer.bypassSecurityTrustHtml(caseStudyData.content);
         return caseStudyData;
