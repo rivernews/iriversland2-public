@@ -14,6 +14,8 @@ export class ApiService {
 
     private DEBUG: boolean = false;
 
+    static TIMEOUT_GET: number = 20000;
+
     constructor(
         private http: HttpClient,
     ) {
@@ -68,7 +70,7 @@ export class ApiService {
             params: (params) ? params : {},
         })
         .pipe(
-            timeout(10000),
+            timeout(ApiService.TIMEOUT_GET),
         );
         // object service (CRUD layer) handles error
     }

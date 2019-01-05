@@ -29,6 +29,8 @@ export class UserService {
     // the token expiration date
     public token_expires: Date;
 
+    static TIMEOUT_login: number = 15000;
+
     private DEBUG: boolean = false;
 
     constructor(
@@ -85,7 +87,7 @@ export class UserService {
         return new Promise((resolve, reject) => {
             this.subscriptions.add(this.apiService.apiPostEndPoint('token-auth', user)
                 .pipe(
-                    timeout(10000)
+                    timeout(UserService.TIMEOUT_login)
                 )
                 .subscribe(
                     data => {
@@ -108,7 +110,7 @@ export class UserService {
         return new Promise((resolve, reject) => {
             this.subscriptions.add(this.apiService.apiPostEndPoint('token-refresh', { token: this.token })
                 .pipe(
-                    timeout(10000)
+                    timeout(UserService.TIMEOUT_login)
                 )
                 .subscribe(
                     data => {

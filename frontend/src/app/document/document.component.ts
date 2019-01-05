@@ -51,6 +51,9 @@ export class DocumentComponent implements OnInit, OnDestroy {
     public isSubmitting: boolean;
     public isCreateMode: boolean;
 
+    static TIMEOUT_SUBMIT: number = 20000;
+    static TIMEOUT_CREATE: number = 20000;
+
     public chipSeparatorKeysCodes = [ENTER, COMMA];
 
     @Input() apiQueryEndPoint?: string;
@@ -265,7 +268,7 @@ export class DocumentComponent implements OnInit, OnDestroy {
                 this.snackBar.popUpMessage("Submitting...", 0);
                 this.subscriptions.add(this.objectDataService.update(this.apiQueryEndPoint, this.document)
                     .pipe(
-                        timeout(10000),
+                        timeout(DocumentComponent.TIMEOUT_SUBMIT),
                         finalize(() => {
                             this.isSubmitting = false;
                         })
@@ -290,7 +293,7 @@ export class DocumentComponent implements OnInit, OnDestroy {
                 this.snackBar.popUpMessage("Creating...", 0);
                 this.subscriptions.add(this.objectDataService.create(this.apiQueryEndPoint, this.document)
                     .pipe(
-                        timeout(10000),
+                        timeout(DocumentComponent.TIMEOUT_CREATE),
                         finalize(() => {
                             this.isSubmitting = false;
                         })
