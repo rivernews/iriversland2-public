@@ -158,7 +158,11 @@ export let MAJOR_ROLE_TOOL_LIST = [
     // frontend
     new s3MediaResource(
         `brands/angular.svg`,
-        `Angular 6`
+        `Angular`
+    ),
+    new s3MediaResource(
+        `brands/react-dark-rounded-rev-01.png`,
+        `React`
     ),
     new s3MediaResource(
         `brands/vue.png`,
@@ -167,10 +171,6 @@ export let MAJOR_ROLE_TOOL_LIST = [
     new s3MediaResource(
         `brands/rxjs.png`,
         `RxJS`
-    ),
-    new s3MediaResource(
-        `brands/sass.png`,
-        `SASS/SCSS`
     ),
 
     // others and fundamentals
@@ -183,13 +183,17 @@ export let MAJOR_ROLE_TOOL_LIST = [
         `JavaScript ES6`
     ),
     new s3MediaResource(
+        `brands/sass.png`,
+        `SASS/SCSS`
+    ),
+    new s3MediaResource(
         `brands/css3.png`,
         `CSS3`
     ),
-    new s3MediaResource(
-        `brands/html5.png`,
-        `HTML5`
-    ),
+    // new s3MediaResource(
+    //     `brands/html5.png`,
+    //     `HTML5`
+    // ),
 
     // backend and devOps
     new s3MediaResource(
