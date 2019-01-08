@@ -166,7 +166,7 @@ Whenever you want to use a new material component, repeat step 2., then you can 
 ## Setting Angular Material in Separate Module
 [See this article](https://medium.com/@armno/creating-a-custom-material-module-in-angular-ee6a5e925d30).
 
-### Upgrading from Angular 6 to 7
+## Upgrading from Angular 6 to 7
 
 - [Using this upgrade guide](https://update.angular.io/).
 - For ` RxJS 6` migration part, do the following instead:
@@ -206,7 +206,7 @@ Whenever you want to use a new material component, repeat step 2., then you can 
   - You'll want to fix them by `scss` if it's not desirable.
 - That's it!
 
-### Using Google Analytics
+## Using Google Analytics in Angular
 
 - [Use this angular adapter](https://github.com/angulartics/angulartics2)
 - [How to write Event Tracking Info](https://developers.google.com/analytics/devguides/collection/analyticsjs/events)
