@@ -46,7 +46,7 @@ if is_production():
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['shaungc.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
 
 if is_production():
     SECURE_SSL_REDIRECT = True
