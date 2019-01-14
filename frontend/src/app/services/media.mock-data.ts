@@ -89,7 +89,7 @@ export let PORTFOLIO_COVER_IMAGES = {
     
     // academic innovation
     38: new s3MediaResource(
-        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-11-05-38/academic-innovation-cover.jpg`,
+        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-11-05-38/problem-roulette-only-cover.jpg`,
         `Academic Innovation`
     ),
 };
