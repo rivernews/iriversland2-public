@@ -116,14 +116,6 @@ export class DocumentListComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.logService.print(this, `doc list:`)
                 this.logService.print(this, documents);
 
-                // TEMP: inject cover images into docs
-                if (documents && this.route.snapshot.data['name'] == 'portfolio') {
-                    let coverImages = this.mediaService.portfolioCoverImages;
-                    documents.map((document) => {
-                        document['coverImage'] = coverImages[document.id];
-                    });
-                };
-
                 if (documents) {
                     /** don't show private doc if not login */
                     if (!this.isLogin) {

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { s3MediaResource,
+import {
     MAJOR_ROLE_TOOL_LIST, MAJOR_ROLE_EDUCATIONS,
-    PORTFOLIO_COVER_IMAGES,
-    HIGHLIGHT_COVER_IMAGES,
     THEMED_ACTIONS
 } from "./media.mock-data";
+
+import { s3MediaResource } from "../data-model/s3-media-resource";
 
 @Injectable({
     providedIn: 'root'
@@ -21,14 +21,6 @@ export class MediaContentService {
 
     get majorRolesEducations(): any[] {
         return MAJOR_ROLE_EDUCATIONS;
-    }
-
-    get portfolioCoverImages(): any {
-        return PORTFOLIO_COVER_IMAGES;
-    }
-
-    get highlightCoverImages(): any {
-        return HIGHLIGHT_COVER_IMAGES;
     }
 
     /* * *

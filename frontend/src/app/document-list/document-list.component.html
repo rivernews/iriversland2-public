@@ -16,7 +16,7 @@
     <ng-template #cardContentsTemplate let-doc="doc">
         <div *ngIf="showCoverImage" mat-card-image class="image" #cardCoverImage [style.height]="getResponsiveCardHeight(cardCoverImage)"
             [style.background]="'lightgray'">
-            <img *ngIf="doc.coverImage" fxFlexFill [style.object-fit]="'cover'" [lazyLoad]="doc.coverImage.url" offset="999" [alt]="'cover image for ' + doc.title">
+            <img *ngIf="doc.cover_image" fxFlexFill [style.object-fit]="'cover'" [lazyLoad]="doc.cover_image" offset="999" [alt]="'cover image for ' + doc.title">
         </div>
         <mat-card-content class="doc-card-content" fxFlexFill fxLayout="column" fxLayoutAlign="space-between stretch" >
             <div >

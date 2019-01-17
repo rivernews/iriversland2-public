@@ -85,22 +85,12 @@ export class HomeComponent implements OnInit, OnDestroy {
                     /** don't show private highlighted case studies if not login */
                     if (!this.isLogin) {
                         this.highlightedCaseStudies = highlightedCaseStudies.filter(
-                            (hcs) => {
-                                if (hcs.is_public) {
-                                    return hcs;
-                                }
-                            }
+                            (hcs) => hcs.is_public
                         )
                     }
                     else {
                         this.highlightedCaseStudies = highlightedCaseStudies;
                     }
-                    this.highlightedCaseStudies
-                        .map((hcs, index) => {
-                        hcs['HIGHLIGHTED_CSS_BACKGROUNDS'] = this.mediaService.highlightCoverImages[hcs.case_study_id];
-                        return hcs;
-                    }
-                    );
                 }
             })
         );

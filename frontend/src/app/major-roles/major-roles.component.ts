@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MAJOR_ROLE_TOOL_LIST, s3MediaResource } from "../services/media.mock-data";
+import { MAJOR_ROLE_TOOL_LIST } from "../services/media.mock-data";
+import { s3MediaResource } from "../data-model/s3-media-resource";
 import { MediaContentService } from "../services/media-content.service";
 
 @Component({

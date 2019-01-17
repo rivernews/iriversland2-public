@@ -1,34 +1,5 @@
-export class s3MediaResource {
-    public url: string;
-    public name: string; // (optional) for description of the image
-
-    private s3BaseURL: string = `https://s3.us-east-2.amazonaws.com/iriversland2-media/`;
-
-    constructor(
-        path: string,
-        name?
-    ) {
-        if (path.includes('//')) {
-            this.url = path;
-        }
-        else {
-            this.url = `${this.s3BaseURL}${path}`;
-        }
-        if (name) this.name = name;
-    }
-}
-
-export class ThemedAction {
-    constructor(
-        public image: s3MediaResource, 
-        public icon: string, 
-        public label: string, 
-        public description: string, 
-        public routerLink: string
-    ) {
-
-    }
-}
+import { s3MediaResource } from "../data-model/s3-media-resource";
+import { ThemedAction } from "../data-model/themed-action";
 
 export let THEMED_ACTIONS = {
     portfolio: new ThemedAction(
@@ -61,60 +32,60 @@ export let THEMED_ACTIONS = {
     ),
 };
 
-export let PORTFOLIO_COVER_IMAGES = {
-    1: new s3MediaResource(
-        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-13-1/cover-rev-01.jpg`,
-        `501`
-    ),
-    3: new s3MediaResource(
-        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-13-3/cover-slate-bg.jpg`,
-        `MeL`
-    ),
-    4: new s3MediaResource(
-        `https://iriversland2-media.s3.amazonaws.com/editor_uploads/case-studies/2018-06-13-4/cover-rev-02.jpg`,
-        `BB`
-    ),
-    7: new s3MediaResource(
-        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-14-7/play-music.jpeg`,
-        `YouBox`
-    ),
-    2: new s3MediaResource(
-        `https://iriversland2-media.s3.amazonaws.com/editor_uploads/case-studies/2018-06-13-2/cover-rev-02.jpg`,
-        `UMSI Redesign`
-    ),
-    6: new s3MediaResource(
-        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-14-6/cover-slate-bg.jpg`,
-        `emoji`
-    ),
+// export let PORTFOLIO_COVER_IMAGES = {
+//     1: new s3MediaResource(
+//         `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-13-1/cover-rev-01.jpg`,
+//         `501`
+//     ),
+//     3: new s3MediaResource(
+//         `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-13-3/cover-slate-bg.jpg`,
+//         `MeL`
+//     ),
+//     4: new s3MediaResource(
+//         `https://iriversland2-media.s3.amazonaws.com/editor_uploads/case-studies/2018-06-13-4/cover-rev-02.jpg`,
+//         `BB`
+//     ),
+//     7: new s3MediaResource(
+//         `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-14-7/play-music.jpeg`,
+//         `YouBox`
+//     ),
+//     2: new s3MediaResource(
+//         `https://iriversland2-media.s3.amazonaws.com/editor_uploads/case-studies/2018-06-13-2/cover-rev-02.jpg`,
+//         `UMSI Redesign`
+//     ),
+//     6: new s3MediaResource(
+//         `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-06-14-6/cover-slate-bg.jpg`,
+//         `emoji`
+//     ),
     
-    // academic innovation
-    38: new s3MediaResource(
-        `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-11-05-38/problem-roulette-only-cover.jpg`,
-        `Academic Innovation`
-    ),
-};
+//     // academic innovation
+//     38: new s3MediaResource(
+//         `https://s3.us-east-2.amazonaws.com/iriversland2-media/editor_uploads/case-studies/2018-11-05-38/problem-roulette-only-cover.jpg`,
+//         `Academic Innovation`
+//     ),
+// };
 
-export let HIGHLIGHT_COVER_IMAGES = {
-    1: {
-        resource : new s3MediaResource(
-            `editor_uploads/case-studies/2018-06-13-1/affinity-wall-working.compressed.jpg`,
-        ),
-        cssPosition: `0% 50%`,
-    },
-    3: {
-        resource : new s3MediaResource(
-            `editor_uploads/case-studies/2018-06-13-3/usability_test_recording.jpg`,
-        ),
-        cssPosition: `100% 50%`,        
-    },
-    4: {
-        resource : new s3MediaResource(
-            PORTFOLIO_COVER_IMAGES[4].url,
-        ),
-        cssPosition: `50% 50%`,
-        cssPositionMobile: `25% 0%`        
-    }
-};
+// export let HIGHLIGHT_COVER_IMAGES = {
+//     1: {
+//         resource : new s3MediaResource(
+//             `editor_uploads/case-studies/2018-06-13-1/affinity-wall-working.compressed.jpg`,
+//         ),
+//         cssPosition: `0% 50%`,
+//     },
+//     3: {
+//         resource : new s3MediaResource(
+//             `editor_uploads/case-studies/2018-06-13-3/usability_test_recording.jpg`,
+//         ),
+//         cssPosition: `100% 50%`,        
+//     },
+//     4: {
+//         resource : new s3MediaResource(
+//             PORTFOLIO_COVER_IMAGES[4].url,
+//         ),
+//         cssPosition: `50% 50%`,
+//         cssPositionMobile: `25% 0%`        
+//     }
+// };
 
 export let MAJOR_ROLE_EDUCATIONS = [
     {

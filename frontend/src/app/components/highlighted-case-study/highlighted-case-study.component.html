@@ -5,9 +5,10 @@
         <div #highlightedCaseStudyContainer fxLayout.gt-sm="row" [style.min-height]="'50vh'"
             class="highlighted-case-study-container relative-corner-control-container image-background-container">
 
-            <div *ngIf="!responsiveService.isMobilePhone" class="image-background" [lazyLoad]="highlightedCaseStudy.HIGHLIGHTED_CSS_BACKGROUNDS.resource.url" [offset]="600" [style.background-position]="highlightedCaseStudy.HIGHLIGHTED_CSS_BACKGROUNDS.cssPosition"></div>
-            <div *ngIf="responsiveService.isMobilePhone" class="image-background" [lazyLoad]="highlightedCaseStudy.HIGHLIGHTED_CSS_BACKGROUNDS.resource.url" [offset]="600" 
-                [style.background-position]="highlightedCaseStudy.HIGHLIGHTED_CSS_BACKGROUNDS.cssPositionMobile"></div>
+            <!-- cover image for desktop & mobile -->
+            <div *ngIf="!responsiveService.isMobilePhone" class="image-background" [lazyLoad]="highlightedCaseStudy.highlighted_image || highlightedCaseStudy.case_study_cover_image" [offset]="600" [style.background-position]="highlightedCaseStudy.highlighted_image_css_position"></div>
+            <div *ngIf="responsiveService.isMobilePhone" class="image-background" [lazyLoad]="highlightedCaseStudy.highlighted_image || highlightedCaseStudy.case_study_cover_image" [offset]="600" 
+                [style.background-position]="highlightedCaseStudy.highlighted_image_css_position_mobile"></div>
 
             <!-- is_public -->
             <div *ngIf="isLogin" class="relative-right-top-control">

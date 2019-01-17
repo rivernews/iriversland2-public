@@ -8,31 +8,32 @@ from django.template.defaultfilters import truncatechars
 from django.utils import timezone
 
 class Document(models.Model):
-	user = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL, # or you can use '[from django.contrib.auth import get_user_model]' then get_user_model(). but only use these in models; you should use account.model.User anywhere else.
         null=True, # you have to use null=True since assigning user is difficult upon creation of this model. assign the author when creating an instance
     )
-	
-	title = models.CharField(max_length=100)
-	content = RichTextUploadingField(
-		blank=True,
-		external_plugin_resources=[],
-	) # blank=True : not required column
-	
-	is_public = models.BooleanField(default=False)
-	comment_amount = models.IntegerField(default=0)
+    
+    title = models.CharField(max_length=100)
+    cover_image = models.URLField(max_length=500, default="", blank=True)
+    content = RichTextUploadingField(
+        blank=True,
+        external_plugin_resources=[],
+    ) # blank=True : not required column
+    
+    is_public = models.BooleanField(default=False)
+    comment_amount = models.IntegerField(default=0)
 
-	order = models.DecimalField(default=0, max_digits=5, decimal_places=3)
-	modified_at = models.DateTimeField(auto_now=True)
-	created_at = models.DateTimeField(default=timezone.now)
+    order = models.DecimalField(default=0, max_digits=5, decimal_places=3)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
-	class Meta:
-		abstract = True
-		ordering = ['-order', '-pk']
-	
-	@property
-	def preview_content(self):
-		return truncatechars(self.content, 100)
+    class Meta:
+        abstract = True
+        ordering = ['-order', '-pk']
+    
+    @property
+    def preview_content(self):
+        return truncatechars(self.content, 100)
 
 
 class Post(Document):
@@ -63,15 +64,20 @@ class CaseStudy(Document):
 	
 
 class HighlightedCaseStudy(models.Model):
-	highlighted_abstract = models.TextField(default="", blank=True)
-	leader_words = models.TextField(default="", blank=True)
-	leader_action = models.CharField(max_length=100)   
-	case_study = models.ForeignKey(CaseStudy)
-	is_public = models.BooleanField(default=False)
+    highlighted_abstract = models.TextField(default="", blank=True)
 
-	class Meta:
-		ordering = ['-case_study__order', '-pk']
-	
-	@property
-	def user(self):
-		return case_study.user
+    highlighted_image = models.URLField(max_length=500, default="", blank=True)
+    highlighted_image_css_position = models.CharField(max_length=10, default="", blank=True)
+    highlighted_image_css_position_mobile = models.CharField(max_length=10, default="", blank=True)
+
+    leader_words = models.TextField(default="", blank=True)
+    leader_action = models.CharField(max_length=100)   
+    case_study = models.ForeignKey(CaseStudy)
+    is_public = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-case_study__order', '-pk']
+    
+    # @property
+    # def user(self):
+    # 	return self.case_study.user

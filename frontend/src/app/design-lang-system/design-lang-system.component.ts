@@ -51,7 +51,6 @@ export class DesignLangSystemComponent implements OnInit, OnDestroy {
                 if (Array.isArray(hcs)) {
                     try {
                         this.sampleHighlightedCaseStudy = hcs.filter((h) => h.is_public)[0];
-                        this.sampleHighlightedCaseStudy.HIGHLIGHTED_CSS_BACKGROUNDS = this.mcs.highlightCoverImages[this.sampleHighlightedCaseStudy.case_study_id];
                     }
                     catch{
                     }

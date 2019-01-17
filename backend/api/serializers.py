@@ -40,10 +40,9 @@ class CaseStudySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CaseStudy
-        # fields = '__all__'
         fields = (
             'id', 'user', 'username', 
-            'title', 'content',
+            'title', 'cover_image', 'content',
             'is_public', 'order', 'created_at',
             'roles', 'time_spent', 'project_type', 'client_type', 'demonstrated_skills'
         )
@@ -52,12 +51,34 @@ class CaseStudySerializer(serializers.HyperlinkedModelSerializer):
 
 class HighlightedCaseStudySerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.ReadOnlyField()
+
+    # case study info
     case_study_id = serializers.CharField(source='case_study.id', read_only=True)
     case_study_title = serializers.CharField(source='case_study.title', read_only=True)
+    case_study_cover_image = serializers.URLField(source='case_study.cover_image', read_only=True)
     case_study_demo_skills = serializers.CharField(source='case_study.demonstrated_skills', read_only=True)
     case_study_roles = serializers.CharField(source='case_study.roles', read_only=True)
 
     class Meta:
         model = HighlightedCaseStudy
-        fields = '__all__'
-        # depth = 1 # for foreign key to case study
+        fields = (
+            'id',
+            'url',
+
+            'case_study',
+            'case_study_id',
+            'case_study_title',
+            'case_study_cover_image',
+            'case_study_demo_skills',
+            'case_study_roles',
+
+            'highlighted_abstract',
+            'highlighted_image',
+            'highlighted_image_css_position',
+            'highlighted_image_css_position_mobile',
+
+            'leader_words',
+            'leader_action',
+            'is_public',
+        )
+        # depth = 1 # for list out all fields in foreign key to case study
