@@ -3,8 +3,8 @@
 
         <img class="image-background" [lazyLoad]="headImage.image?.url" [style.background]="'gray'" offset="999" alt="page head image">
 
-        <div class="themed-action-text-container" fxLayout="column" fxLayoutAlign="end center">
-            <div class="page-section dark-theme-text" fxLayout="column" fxLayoutAlign="end stretch">
+        <div class="shadowed-text-container" fxLayout="column" fxLayoutAlign="end center">
+            <div class="page-section dark-theme-text evenly-shadowed-text" fxLayout="column" fxLayoutAlign="end stretch">
                 <span 
                     [ngClass.gt-sm]="'mat-display-1'"
                     [ngClass.lt-md]="'mat-display-2'" >{{pageHeadlineText}}</span>

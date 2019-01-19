@@ -89,7 +89,7 @@
 <.themed-actions-container (optional).zoom-in-hover-effect >
     <.image-background-container .themed-action-container>
         <.image-background .themed-action>    
-        <.themed-action-text-container>  <----- for shaded effect
+        <.shadowed-text-container>  <----- for theme action's text shaded effect
             <.evenly-shadowed-text>
 */
 
@@ -102,7 +102,7 @@
     // initial state & transition spec
     .themed-action-container {
         
-        .themed-action-text-container {
+        .shadowed-text-container {
             @include pinned-box-mixin();
             background-color: rgba($color: black, $alpha: 0.7);
         }
@@ -116,7 +116,7 @@
     .themed-action-container {
         overflow: hidden;
 
-        .themed-action-text-container {
+        .shadowed-text-container {
             // @include pinned-box-mixin();
             
             // background-color: rgba($color: black, $alpha: 0.7);
@@ -131,7 +131,7 @@
     .themed-action-container:hover {
         cursor: pointer;
 
-        .themed-action-text-container {
+        .shadowed-text-container {
             background-color: rgba($color: black, $alpha: 0.2);
         }
 
@@ -142,7 +142,7 @@
 }
 
 // adjust text contrast
-.themed-action-text-container {
+.shadowed-text-container {
     .evenly-shadowed-text {
         text-shadow: 0 0 7px rgba(0,0,0, 0.6);
         z-index: 2 // required by bottom actions (but not themed actions)

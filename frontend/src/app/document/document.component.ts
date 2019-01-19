@@ -120,6 +120,12 @@ export class DocumentComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
+    /**
+     * 
+     * Interact with DOM
+     * 
+     */
+
     @HostListener('window:beforeunload', ['$event'])
     onPageLeaveAlert(e) {
         e = e || window.event;
@@ -232,15 +238,6 @@ export class DocumentComponent implements OnInit, OnDestroy {
     * Deal with editables
     * 
     * */
-
-    public setSanitizedHtmlContent(htmlContent) {
-        let sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
-        return sanitizedHtml;
-    }
-    public getSanirizedUrl(url) {
-        let sanitizedUrl = this.sanitizer.bypassSecurityTrustUrl(url);
-        return sanitizedUrl;
-    }
 
     private generateDocument() {
         let documentObject = {

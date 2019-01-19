@@ -29,7 +29,7 @@
 
             <div class="image-background themed-action" [lazyLoad]="headlineImage.image.url" [style.background-color]="'gray'" offset="1"></div>
             
-            <div class="themed-action-text-container" (click)="actionSurfaceOnClick(headlineImage, $event)" matRipple fxFlexFill fxLayout="column"
+            <div class="shadowed-text-container" (click)="actionSurfaceOnClick(headlineImage, $event)" matRipple fxFlexFill fxLayout="column"
                 fxLayoutAlign="center center">
                 
                 <div class="dark-theme-text evenly-shadowed-text" fxLayout.gt-sm="column" fxLayoutAlign="center center" fxLayout.lt-md="row"
@@ -75,7 +75,7 @@
                 
                 <div class="themed-action image-background" [lazyLoad]="action.image.url" offset="600"></div>
                 
-                <div class="themed-action-text-container" (click)="actionSurfaceOnClick(action, $event)" matRipple fxFlexFill fxLayout="column"
+                <div class="shadowed-text-container" (click)="actionSurfaceOnClick(action, $event)" matRipple fxFlexFill fxLayout="column"
                     fxLayoutAlign="center center">
                     
                     <div class="dark-theme-text evenly-shadowed-text" fxLayout.gt-sm="column" fxLayoutAlign="center center" fxLayout.lt-md="row"
