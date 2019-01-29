@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, AfterViewInit } from '@angular/core';
 
-import { CaseStudyService } from "../case-study/case-study.service";
 import { SnackBarServiceService } from "../services/snack-bar-service.service";
 import { UserService } from "../services/user.service";
 

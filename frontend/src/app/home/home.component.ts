@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { Subscription } from "rxjs";
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { CaseStudyService } from "../case-study/case-study.service";
 import { HighlightedCaseStudy } from '../posts/post';
 import { UserService } from '../services/user.service';
 import { SnackBarServiceService } from '../services/snack-bar-service.service';
@@ -36,7 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
     constructor(
-        private caseStudyService: CaseStudyService,
         private userService: UserService,
         private objectDataService: ObjectDataService,
         private mediaService: MediaContentService,
