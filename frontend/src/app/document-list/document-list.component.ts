@@ -145,7 +145,6 @@ export class DocumentListComponent implements OnInit, OnDestroy, AfterViewInit {
             });
             await this.objDataService.setCollectiveTagList(this.apiQueryEndPoint, this.collectiveTagList);
         } else {
-            console.log("not go to branch since it's length is not zero")
             this.tagSetListChanges(null);
         }
     }
