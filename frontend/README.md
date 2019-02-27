@@ -1,3 +1,7 @@
+# Iriversland
+
+Online portfolio repo. To run this project locally, you'll have to prepare a database and provide the credentials.
+
 # Frontend
 
 ## NPM Packages

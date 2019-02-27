@@ -1,4 +1,4 @@
-ve=".venv"
+ve="venv"
 deactivate
 if [ -f "requirements.txt" ]; then
     echo "INFO: requirements.txt detected"
