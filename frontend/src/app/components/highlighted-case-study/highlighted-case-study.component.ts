@@ -25,7 +25,7 @@ export class HighlightedCaseStudyComponent implements OnInit, OnDestroy {
     @Input()
     public highlightedCaseStudy: any;
     @Input()
-    public isLogin: boolean = true;    
+    public isLogin: boolean = true;
     @Input()
     public highlightedCaseStudyIndex: number;
 
@@ -76,16 +76,31 @@ export class HighlightedCaseStudyComponent implements OnInit, OnDestroy {
     @HostListener('window:scroll', ['$event'])
     private scrollController(e) {
         const component = this.el.nativeElement;
-        const container = this.highlightedCaseStudyContainer.nativeElement;
+        const highlightContainer = this.highlightedCaseStudyContainer.nativeElement;
         const textContainer = this.highlightedCaseStudyTextContainer.nativeElement;
+        let rect = component.getBoundingClientRect();
+        
+        let topStartBound = 800.0;
+        let topEndBound = -200.0;
+        let translateXValueStart = -100;
+        let translateXValueRange = 100;
+        let opacityValue = 0;
+        let translateXValue = translateXValueStart;
+        let effectiveRange = topStartBound - topEndBound;
 
-        let highlightedTextTriggerPosition = (this.responsiveService.isMobilePhone) ? 0.45 : 0.85;
-        if (this.isElementInViewport(component, highlightedTextTriggerPosition)) {
-            container.classList.add('shaded');
+        let { top } = rect;
+        highlightContainer.classList.remove('shaded');
+        if (top <= topStartBound && top >= topEndBound) {
+            translateXValue += ((topStartBound - top) / effectiveRange) * translateXValueRange;
+            opacityValue += ((topStartBound - top) / effectiveRange) * 1.0;
+        }
+        else {
+            translateXValue = 0;
+            opacityValue = 1;
+        }
 
-            textContainer.classList.add('show-state');
-            textContainer.classList.remove('hide-state');
-
+        if (top < topEndBound + 100) {
+            highlightContainer.classList.add('shaded');
             this.angulartics2.eventTrack.next({
                 action: `${this.highlightedCaseStudy.case_study_title}`,
                 properties: {
@@ -93,35 +108,11 @@ export class HighlightedCaseStudyComponent implements OnInit, OnDestroy {
                     label: `Applied shading to highlighted case study "${this.highlightedCaseStudy.case_study_title}"`
                 }
             });
-        } else {
-            container.classList.remove('shaded');
-            
-            textContainer.classList.remove('show-state');
-            textContainer.classList.add('hide-state');
-        }
-    }
-
-    private isElementInViewport(el, portion?) {
-        let portionTrigger = 1;    
-        if (portion) {
-            portionTrigger = portion;            
         }
 
-        let rect = el.getBoundingClientRect();
-
-        let elementHeight = rect.height;
-        let viewportHeight = (window.innerHeight || document.documentElement.clientHeight);
-        let emergedHeight = viewportHeight - rect.top;
-
-        // console.log(`emergedH: ${emergedHeight}, portion: ${portionTrigger}, elementH: ${elementHeight}`);
-
-        return (
-            emergedHeight >= 0 &&
-            emergedHeight >= portionTrigger * elementHeight
-            // rect.top >= 0 &&
-            // rect.left >= 0 &&
-            // rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) /*or $(window).height() */
-            // rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
-        );
+        textContainer.style.transform = `translateX(${
+            translateXValue
+            }vw)`;
+        textContainer.style.opacity = opacityValue;
     }
 }

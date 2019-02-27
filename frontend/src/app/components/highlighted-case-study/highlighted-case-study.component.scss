@@ -12,12 +12,12 @@
 
 .highlighted-case-study-container {
     @include bp(lt-sm) {
-        padding-top: 25vh;
+        padding-top: 75vh;
     }
     @include bp(gt-xs) {
-        padding-top: 85vh;
+        padding-top: 65vh;
     }
-    padding-bottom: 25vh;
+    padding-bottom: 30vh;
 
     .image-background {
         @include bp(lt-sm) {
@@ -45,16 +45,6 @@
     }
 
     .text-container {
-        @include set-transition-promptly(transform opacity, $duration: 0.8s);
-
-        &.hide-state {
-            transform: translateX(10vw);
-            opacity: 0;
-        }
-
-        &.show-state {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        position: relative;
     }
 }
