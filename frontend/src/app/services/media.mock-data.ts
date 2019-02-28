@@ -93,7 +93,7 @@ export let MAJOR_ROLE_EDUCATIONS = [
             `brands/um.png`,
         ),
         fullName: `University of Michigan`,
-        degree: `M.S. in Information, UX Design & Human-Computer Interaction track`,
+        degree: `M.S. in Information, Human-Computer Interaction track`,
         year: `Class of 2019`,
     },
     {
