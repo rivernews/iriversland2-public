@@ -11,5 +11,5 @@ I'm finding a way to manage the cost while searching for other hosting alternati
 
 # Reference
 
-- Instructions on setting up [git submodules]([docs])
-- Instructions on setting up [enforcing http to https]([docs])
+- Instructions on setting up [git submodules]([/docs])
+- Instructions on setting up [enforcing http to https]([/docs])
