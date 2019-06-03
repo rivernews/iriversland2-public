@@ -1,61 +1,15 @@
-# Django + Angular + RESTful + EB
+# Iriversland2
 
-## AWS
+This is the public-facing repository for my personal website which contains my portfolio, case study and bio.
 
-- Force redirecting http to https, [see this post](https://stackoverflow.com/questions/14693852/how-to-force-https-on-elastic-beanstalk).
+## Update
 
-  - You can also use Django's settings, or both Django and AWS. [See Django settings](https://docs.djangoproject.com/en/2.0/topics/security/#ssl-https).
+The site is currently taken down for cost reasons. This single site which uses AWS Elastic Beanstalk and Relational Database Service costs me over $50 a month (load balancer $20+, RDS $15, EC2 $15). A big portion of it is due to the fact that elastic beanstalk by default uses ELB (elastic load balancer), which is now classic load balancer. 
 
-## Git Submodule Basics
+I'm finding a way to manage the cost while searching for other hosting alternatives. Several articles indicate that using Application Load Balancer will be much cheaper, based on the cost calculation model of AWS. I will plan to spin up the server again in the near future.
 
-[Following this article](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
-- *** Clone in a git repo in an existing repo as submodule
+# Reference
 
-Go to the folder within your repo, where you want to put the submodule
-
-```shell
-
-cd to/a/good/path
-git submodule add -b stable https://github.com/rivernews/ckeditor5-build-balloon
-
-``` 
-
-will setup config files for submodule, and pull down the submodule the very first time.
-
-`git push origin master` for the very first time.
-
-- Pulling updates of submodules from fork repo
-
-`git submodule update --remote --merge`
-
-- Auto push all submodule as well when git pushing main project. 
-
-Set this by default `git config push.recurseSubmodules on-demand`.
-
-One-time command: `git push --recurse-submodules=on-demand`
-
-- *** Edit, add & commit 
-
-manually cd to each submodule, add commit & push, or
-
-```bash
-
-git submodule foreach 'git add && commit'
-`git push --recurse-submodules=on-demand`
-
-```
-
-[See also](https://stackoverflow.com/questions/5542910/how-do-i-commit-changes-in-a-git-submodule)
-
-- (optional) Get warning message doing `git push` if submodule's commits haven't done `git push`
-
-> want the check behavior to happen for all pushes [...](https://git-scm.com/book/en/v2/Git-Tools-Submodules):  `git config push.recurseSubmodules check`
-
-- Cloning the whole project that contains submodule, from scratch
-
-`git clone --recurse-submodules <git repo url>`
-
-It will pull all the submodules as well.
-
-- Coming soon: update from upstream of that fork
+- Instructions on setting up [git submodules]([docs])
+- Instructions on setting up [enforcing http to https]([docs])
