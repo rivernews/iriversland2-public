@@ -1,0 +1,22 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+	// "dockerFile": "dev.Dockerfile",
+	"dockerFile": "dev.Dockerfile",
+    "workspaceFolder": "/usr/src/backend",
+    "extensions": [
+        "ms-python.python",
+        "visualstudioexptteam.vscodeintellicode"
+    ],
+    "shutdownAction": "stopContainer",
+
+    // Mirrors docker command -p IP:host-port:container-port
+    // 0.0.0.0 is the IP, but also called `external interface`
+    "appPort": "0.0.0.0:8000:8000",
+
+    // After `postCreateCommand`, vscode will still shutdown the service and re-start the container, so don't put entrypoint in it.
+    // In fact, the entrypoint in Dockerfile won't work neither in vscode.
+    // "postCreateCommand": "~~python manage.py runserver 0.0.0.0:8000~~"
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    }
+}

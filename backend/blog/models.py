@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from ckeditor_uploader.fields import RichTextUploadingField
+# from ckeditor_uploader.fields import RichTextUploadingField
 
 from django.template.defaultfilters import truncatechars
 
@@ -15,9 +15,9 @@ class Document(models.Model):
     
     title = models.CharField(max_length=100)
     cover_image = models.URLField(max_length=500, default="", blank=True)
-    content = RichTextUploadingField(
+    content = models.TextField(
         blank=True,
-        external_plugin_resources=[],
+        # external_plugin_resources=[],
     ) # blank=True : not required column
     
     is_public = models.BooleanField(default=False)

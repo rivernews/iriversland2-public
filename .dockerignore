@@ -1,10 +1,26 @@
-# Iriversland
-/staticfiles
-/static
+# project
+#
+#
+
+*Dockerfile*
+*.md
+
+# frontend
+#
+#
+
+node_modules
+
+# backend
+#
+#
+
+**/staticfiles
+**/static
 # frontend-bundle-dist
 .DS_Store
-*credential*
-*secret*
+# *credential*
+# *secret*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

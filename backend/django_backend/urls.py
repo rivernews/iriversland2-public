@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^report', BlogViews.EmailView.as_view(), name='report'),
     url(r'^recaptcha/$', BlogViews.ContactMeView.as_view(), name='recaptcha'),
 
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^api/uploads/', views.FileUploadView.as_view()),
     
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # for the browsable API login URLs

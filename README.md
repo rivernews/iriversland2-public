@@ -8,6 +8,7 @@ The site is currently taken down for cost reasons. This single site which uses A
 
 - Terminated elastic beanstalk environment
 - Terminated RDS for iriversland2 (also for appl tracky)
+    - Stored snapshot available on RDS.
 
 I'm finding a way to manage the cost while searching for other hosting alternatives. Several articles indicate that using Application Load Balancer will be much cheaper, based on the cost calculation model of AWS. I will plan to spin up the server again in the near future.
 

@@ -46,7 +46,10 @@ if is_production():
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
+if is_production():
+    ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = ['*']
 
 if is_production():
     SECURE_SSL_REDIRECT = True
@@ -67,8 +70,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'storages',
-    'ckeditor',
-    'ckeditor_uploader',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
 
     'account',
     'api',
@@ -197,7 +200,9 @@ STATICFILES_DIRS = [
     os.path.join(ANGULAR_APP_DIR), # additional path for django to collect static
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'www', 'static') # django output static. collectstatic will put the collected static files in STATIC_ROOT. www is for Elastic Beanstalk
+# django output static. collectstatic will put the collected static files in STATIC_ROOT. www is for Elastic Beanstalk
+# see https://docs.djangoproject.com/en/2.2/howto/static-files/deployment/
+STATIC_ROOT = os.path.join(BASE_DIR, 'www', 'static')
 
 STATIC_URL = '/static/'
 
@@ -205,12 +210,18 @@ STATIC_URL = '/static/'
 # CKEDitor & S3 storage for Media files (Images, Files)
 # https://simpleisbetterthancomplex.com/tutorial/2017/08/01/how-to-setup-amazon-s3-in-a-django-project.html
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # for media files
-
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # already using elastic beanstalk handling static in S3 so don't bother
-
-
+# for media files
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'django_backend.custom_storages.MediaStorage'
 MEDIA_FILES_BUCKET_NAME = 'iriversland2-media'
+
+# for static file
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # already using elastic beanstalk handling static in S3 so don't bother
+# But when not using elastic beanstalk, we have to config ourselves using S3
+# see https://docs.djangoproject.com/en/2.2/howto/static-files/deployment/
+# STATICFILES_STORAGE = 'django_backend.custom_storages.StaticStorage'
+STATICFILES_STORAGE = 'django_backend.custom_storages.MediaStorage'
+STATIC_FILES_BUCKET_NAME = 'iriversland2-static'
     
 AWS_STORAGE_BUCKET_NAME = MEDIA_FILES_BUCKET_NAME
 AWS_AUTO_CREATE_BUCKET = True
@@ -219,7 +230,6 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_FILES_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-DEFAULT_FILE_STORAGE = 'django_backend.custom_storages.MediaStorage'
 
 # AWS_LOCATION = 'static'
 

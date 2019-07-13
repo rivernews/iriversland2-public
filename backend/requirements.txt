@@ -1,6 +1,7 @@
 # for django and restful
 #
 django<2
+gunicorn == 19.9.0
 djangorestframework==3.9.0
 django-cors-headers==2.4.0
 djangorestframework-jwt==1.11.0
@@ -9,9 +10,10 @@ djangorestframework-jwt==1.11.0
 #
 psycopg2==2.7.5
 mako==1.0.7
-awsebcli==3.14.6
+# awsebcli==3.14.6
 
+requests==2.18.4
 pillow==5.3.0
-django-ckeditor==5.6.1
+# django-ckeditor==5.6.1
 boto3==1.9.27
 django-storages==1.7.1

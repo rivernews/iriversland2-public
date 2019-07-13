@@ -23,6 +23,7 @@
     "@angular/router": "^7.0.0",
     "@angular/service-worker": "^7.0.0",
     "core-js": "^2.5.7",
+    "node-sass": "^4.12.0",
     "rxjs": "^6.3.3",
     "rxjs-tslint": "^0.1.5",
     "zone.js": "^0.8.26"
