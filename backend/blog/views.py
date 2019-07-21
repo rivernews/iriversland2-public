@@ -13,6 +13,12 @@ from blog.models import CaseStudy, Post
 
 import json
 
+class HealthCheckView(View):
+    def get(self, request):
+        return JsonResponse({
+            'message': 'django health check ok.'
+        }, status=200)
+
 class EmailReportMixin(object):
     HTML_MESSAGE = ''
     visitor_info_dict = {}

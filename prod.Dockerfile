@@ -2,7 +2,10 @@
 ##
 ##
 
-FROM node:10-stretch-slim as ng_stage_image
+# debian
+# FROM node:10-stretch-slim as ng_stage_image
+# alpine
+FROM node:10-alpine as ng_stage_image
 
 ENV IMAGE_PROJECT_DIR /usr/src
 
@@ -34,7 +37,8 @@ RUN $(npm bin)/ng build --prod
 ##
 ##
 
-FROM python:3.7
+# FROM python:3.7
+FROM python:3.7-alpine
 
 # Set environment varibles
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -53,15 +57,26 @@ COPY --from=ng_stage_image ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist \
     ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist
 
 # Install dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
+# debian
+# RUN apt-get update \
+#     && apt-get install -y --no-install-recommends \
+#         postgresql-client \
+#     && rm -rf /var/lib/apt/lists/*
+# alpine
+# for pip install pillow - apk add jpeg-dev zlib-dev. see https://stackoverflow.com/questions/44043906/the-headers-or-library-files-could-not-be-found-for-jpeg-installing-pillow-on
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add postgresql-dev \
+    && apk add jpeg-dev zlib-dev
+
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# alpine
+RUN apk del build-deps
 
 # vscode remote does not support EXPOSE, we use `appPort` in `.devcontainer.json` instead
 # for production build, you might want to include EXPOSE
-EXPOSE 8000
+# EXPOSE 8000
 
 # Entry point script
 RUN chmod +x entrypoint.sh

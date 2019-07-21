@@ -1,15 +1,19 @@
+# see dockerignore format
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
 # project
 #
 #
 
 *Dockerfile*
-*.md
+**.md
+**.git
 
 # frontend
 #
 #
 
-node_modules
+**/node_modules
 
 # backend
 #
@@ -109,7 +113,7 @@ celerybeat-schedule
 .env
 .venv
 env/
-venv
+**/venv
 venv/
 ENV/
 env.bak/
