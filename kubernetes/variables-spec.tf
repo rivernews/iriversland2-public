@@ -13,6 +13,8 @@ variable "app_name" {}
 variable "app_exposed_port" {}
 
 variable "managed_route53_zone_name" {}
+variable "managed_k8_external_dns_domain" {}
+
 variable "app_deployed_domain" {}
 
 

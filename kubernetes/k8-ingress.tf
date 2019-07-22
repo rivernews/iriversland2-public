@@ -10,6 +10,7 @@ resource "helm_release" "project-nginx-ingress" {
 
   repository = "${data.helm_repository.stable.metadata.0.name}"
   chart      = "nginx-ingress"
+  # version = ""
 
   # helm chart values (equivalent to yaml)
   # https://github.com/terraform-providers/terraform-provider-helm/issues/145
@@ -49,10 +50,10 @@ resource "helm_release" "project-nginx-ingress" {
     value = true
   }
 
-  set {
-      name = "controller.publishService.enabled"
-      value = true
-  }
+#   set {
+#       name = "controller.publishService.enabled"
+#       value = true
+#   }
 
   depends_on = [
     "kubernetes_cluster_role_binding.tiller",
@@ -62,19 +63,20 @@ resource "helm_release" "project-nginx-ingress" {
 
 # based on SO answer: https://stackoverflow.com/a/55968709/9814131
 # format for `set` refer to official repo README: https://github.com/helm/charts/tree/master/stable/external-dns
-provider "aws" {
-  region     = "${var.aws_region}"
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-}
-data "aws_route53_zone" "selected" {
-  name         = "${var.managed_route53_zone_name}"
-  private_zone = false
-}
+# provider "aws" {
+#   region     = "${var.aws_region}"
+#   access_key = "${var.aws_access_key}"
+#   secret_key = "${var.aws_secret_key}"
+# }
+# data "aws_route53_zone" "selected" {
+#   name         = "${var.managed_route53_zone_name}"
+#   private_zone = false
+# }
 resource "helm_release" "project-external-dns" {
   name      = "external-dns"
   chart     = "stable/external-dns"
   namespace = "${kubernetes_service_account.tiller.metadata.0.namespace}"
+  # version = ""
 
   set {
     name  = "provider"
@@ -100,16 +102,16 @@ resource "helm_release" "project-external-dns" {
   # see terraform official blog: https://www.hashicorp.com/blog/using-the-kubernetes-and-helm-providers-with-terraform-0-12
   set {
     name  = "domainFilters[0]"
-    value = "${data.aws_route53_zone.selected.name}"
+    value = "${var.managed_k8_external_dns_domain}"
   }
-  set {
-    name  = "registry"
-    value = "txt"
-  }
-  set {
-    name  = "txt-owner-id"
-    value = "${data.aws_route53_zone.selected.zone_id}"
-  }
+#   set {
+#     name  = "registry"
+#     value = "txt"
+#   }
+#   set {
+#     name  = "txt-owner-id"
+#     value = "${data.aws_route53_zone.selected.zone_id}"
+#   }
 
   set {
     name  = "policy"
@@ -132,7 +134,7 @@ resource "helm_release" "project-external-dns" {
 resource "kubernetes_ingress" "project-ingress-resource" {
   metadata {
     name = "project-ingress-resource"
-    # namespace = "${kubernetes_service.app.metadata.0.namespace}"
+    namespace = "${kubernetes_service.app.metadata.0.namespace}"
 
     annotations = {
       "kubernetes.io/ingress.class" = "nginx"

@@ -35,7 +35,7 @@ resource "kubernetes_cluster_role_binding" "tiller" {
 #
 resource "kubernetes_service_account" "cicd" {
     # https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
-  automount_service_account_token = true
+#   automount_service_account_token = true
 
   metadata {
 
@@ -43,9 +43,6 @@ resource "kubernetes_service_account" "cicd" {
     namespace = "${kubernetes_namespace.cicd.metadata.0.name}"
   }
 
-#   image_pull_secret {
-#     name = "${kubernetes_secret.dockerhub_secret.metadata.0.name}"
-#   }
 }
 
 

@@ -7,7 +7,7 @@ docker_registry_url = "https://index.docker.io/v1/"
 app_container_image = "shaungc/iriversland2-django"
 
 # cicd_namespace = "kube-system"
-cicd_namespace = "django"
+cicd_namespace = "cicd-django"
 
 app_name = "django"
 
@@ -16,4 +16,5 @@ app_label = "django"
 app_exposed_port = 8000
 
 managed_route53_zone_name = "shaungc.com."
+managed_k8_external_dns_domain = "shaungc.com"
 app_deployed_domain = "testtest.shaungc.com"
