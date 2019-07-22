@@ -50,10 +50,10 @@ resource "helm_release" "project-nginx-ingress" {
     value = true
   }
 
-#   set {
-#       name = "controller.publishService.enabled"
-#       value = true
-#   }
+  #   set {
+  #       name = "controller.publishService.enabled"
+  #       value = true
+  #   }
 
   depends_on = [
     "kubernetes_cluster_role_binding.tiller",
@@ -104,14 +104,14 @@ resource "helm_release" "project-external-dns" {
     name  = "domainFilters[0]"
     value = "${var.managed_k8_external_dns_domain}"
   }
-#   set {
-#     name  = "registry"
-#     value = "txt"
-#   }
-#   set {
-#     name  = "txt-owner-id"
-#     value = "${data.aws_route53_zone.selected.zone_id}"
-#   }
+  #   set {
+  #     name  = "registry"
+  #     value = "txt"
+  #   }
+  #   set {
+  #     name  = "txt-owner-id"
+  #     value = "${data.aws_route53_zone.selected.zone_id}"
+  #   }
 
   set {
     name  = "policy"
@@ -133,7 +133,7 @@ resource "helm_release" "project-external-dns" {
 # modified based on SO answer: https://stackoverflow.com/a/55968709/9814131
 resource "kubernetes_ingress" "project-ingress-resource" {
   metadata {
-    name = "project-ingress-resource"
+    name      = "project-ingress-resource"
     namespace = "${kubernetes_service.app.metadata.0.namespace}"
 
     annotations = {
@@ -169,5 +169,17 @@ resource "kubernetes_ingress" "project-ingress-resource" {
     # tls {
     #   secret_name = "tls-secret"
     # }
+  }
+}
+
+resource "kubernetes_config_map" "project-nginx-confmap" {
+  metadata {
+    name = "project-nginx-confmap"
+    namespace = "${kubernetes_service.app.metadata.0.namespace}"
+  }
+
+  # refer to https://github.com/terraform-providers/terraform-provider-template/issues/39
+  data = {
+    "nginx.conf" = "${file("nginx.conf")}"
   }
 }
