@@ -186,7 +186,7 @@ resource "kubernetes_ingress" "project-ingress-resource" {
 
 resource "kubernetes_service" "app-static-assets" {
   metadata {
-    name = "${var.app_name}-static-assets"
+    name      = "${var.app_name}-static-assets"
     namespace = "${kubernetes_service_account.cicd.metadata.0.namespace}"
 
     labels = {
@@ -194,17 +194,18 @@ resource "kubernetes_service" "app-static-assets" {
     }
   }
   spec {
-    type = "ExternalName"
-    
+    type          = "ExternalName"
+    external_name = "${var.app_frontend_static_assets_dns_name}"
+
     selector = {
       app = "${kubernetes_deployment.app.metadata.0.labels.app}"
     }
 
-    # session_affinity = "ClientIP"
-
     port {
-      port        = "${var.app_exposed_port}" # make this service visible to other services by this port; https://stackoverflow.com/a/49982009/9814131
-      target_port = "${var.app_exposed_port}" # the port where your application is running on the container
+      name        = "http"
+      protocol = "TCP"
+      port        = "80" # make this service visible to other services by this port; https://stackoverflow.com/a/49982009/9814131
+      target_port = "80" # the port where your application is running on the container
     }
 
   }
