@@ -172,14 +172,40 @@ resource "kubernetes_ingress" "project-ingress-resource" {
   }
 }
 
-resource "kubernetes_config_map" "project-nginx-confmap" {
-  metadata {
-    name = "project-nginx-confmap"
-    namespace = "${kubernetes_service.app.metadata.0.namespace}"
-  }
+# resource "kubernetes_config_map" "project-nginx-confmap" {
+#   metadata {
+#     name = "project-nginx-confmap"
+#     namespace = "${kubernetes_service.app.metadata.0.namespace}"
+#   }
 
-  # refer to https://github.com/terraform-providers/terraform-provider-template/issues/39
-  data = {
-    "nginx.conf" = "${file("nginx.conf")}"
+#   # refer to https://github.com/terraform-providers/terraform-provider-template/issues/39
+#   data = {
+#     "nginx.conf" = "${file("nginx.conf")}"
+#   }
+# }
+
+resource "kubernetes_service" "app-static-assets" {
+  metadata {
+    name = "${var.app_name}-static-assets"
+    namespace = "${kubernetes_service_account.cicd.metadata.0.namespace}"
+
+    labels = {
+      app = "${var.app_label}"
+    }
+  }
+  spec {
+    type = "ExternalName"
+    
+    selector = {
+      app = "${kubernetes_deployment.app.metadata.0.labels.app}"
+    }
+
+    # session_affinity = "ClientIP"
+
+    port {
+      port        = "${var.app_exposed_port}" # make this service visible to other services by this port; https://stackoverflow.com/a/49982009/9814131
+      target_port = "${var.app_exposed_port}" # the port where your application is running on the container
+    }
+
   }
 }
