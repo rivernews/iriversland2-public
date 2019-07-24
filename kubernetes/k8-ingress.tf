@@ -174,7 +174,7 @@ resource "kubernetes_ingress" "project-ingress-resource" {
 
 resource "kubernetes_config_map" "project-nginx-confmap" {
   metadata {
-    name = "project-nginx-confmap"
+    name = "nginx.conf"
     namespace = "${kubernetes_service.app.metadata.0.namespace}"
   }
 
