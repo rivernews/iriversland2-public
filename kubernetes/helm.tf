@@ -1,7 +1,7 @@
 # initialize Helm provider
 provider "helm" {
-  # version        = "~> 0.7.0"
   # version        = "~> 0.9" # https://www.hashicorp.com/blog/using-the-kubernetes-and-helm-providers-with-terraform-0-12
+  version = "~> 0.10"
 
   install_tiller  = true
   service_account = "${kubernetes_service_account.tiller.metadata.0.name}"

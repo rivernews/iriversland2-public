@@ -2,28 +2,29 @@
 #   See: https://www.digitalocean.com/docs/api/create-personal-access-token/
 # Set TF_VAR_do_token to use your Digital Ocean token automatically
 provider "digitalocean" {
-  token = "${var.do_token}"
+  token   = "${var.do_token}"
+  version = "~> 1.5"
 }
 
 # Terraform officials: https://www.terraform.io/docs/providers/do/r/tag.html
 resource "digitalocean_tag" "project-cluster" {
-  name = "project-digitalocean-kubernetes-cluster-tag"
+  name = "${var.project_name}-digitalocean-kubernetes-cluster-tag"
 }
 
 # Terraform official: https://www.terraform.io/docs/providers/do/d/kubernetes_cluster.html
 resource "digitalocean_kubernetes_cluster" "project_digitalocean_cluster" {
-  name    = "${var.do_cluster_name}"
+  name    = "${var.project_name}-cluster"
   region  = "sfo2"
   version = "1.14.4-do.0"
 
   node_pool {
-    name       = "project-node-pool"
+    name       = "${var.project_name}-node-pool"
     size       = "s-1vcpu-2gb"
     node_count = 1
-    tags = ["${digitalocean_tag.project-cluster.id}"]
+    tags       = ["${digitalocean_tag.project-cluster.id}"]
   }
 
-    # tags = ["${digitalocean_tag.project-cluster.id}"]
+  # tags = ["${digitalocean_tag.project-cluster.id}"]
 }
 
 # resource "null_resource" "pull_kubeconfig" {
@@ -44,7 +45,11 @@ resource "digitalocean_kubernetes_cluster" "project_digitalocean_cluster" {
 #     filename = "kubeconfig.yaml"
 # }
 # https://github.com/terraform-providers/terraform-provider-digitalocean/issues/234#issuecomment-493375811
+provider "null" {
+  version = "~> 2.1"
+}
 resource "null_resource" "kubeconfig" {
+
   provisioner "local-exec" {
     command = ". ./pull-do-kubeconfig.sh ${digitalocean_kubernetes_cluster.project_digitalocean_cluster.id}"
   }
@@ -56,6 +61,8 @@ resource "null_resource" "kubeconfig" {
 
 # initialize Kubernetes provider
 provider "kubernetes" {
+  version = "~> 1.8"
+
   host = "${digitalocean_kubernetes_cluster.project_digitalocean_cluster.endpoint}"
 
   client_certificate     = "${base64decode(digitalocean_kubernetes_cluster.project_digitalocean_cluster.kube_config.0.client_certificate)}"
@@ -70,7 +77,7 @@ resource "kubernetes_namespace" "cicd" {
 }
 
 resource "digitalocean_firewall" "project-cluster-firewall" {
-  name = "project-cluster-firewall"
+  name = "${var.project_name}-cluster-firewall"
   tags = ["${digitalocean_tag.project-cluster.id}"]
 
   # Allow healthcheck

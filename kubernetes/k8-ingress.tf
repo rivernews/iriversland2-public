@@ -133,7 +133,7 @@ resource "helm_release" "project-external-dns" {
 # modified based on SO answer: https://stackoverflow.com/a/55968709/9814131
 resource "kubernetes_ingress" "project-ingress-resource" {
   metadata {
-    name      = "project-ingress-resource"
+    name      = "${var.project_name}-ingress-resource"
     namespace = "${kubernetes_service.app.metadata.0.namespace}"
 
     annotations = {
@@ -195,7 +195,7 @@ resource "kubernetes_service" "app-static-assets" {
 # and https://liet.me/2019/06/26/kubernetes-nginx-ingress-and-s3-bucket/
 resource "kubernetes_ingress" "project-app-static-assets-ingress-resource" {
   metadata {
-    name      = "project-app-static-assets-ingress-resource"
+    name      = "${var.project_name}-app-static-assets-ingress-resource"
     namespace = "${kubernetes_service.app.metadata.0.namespace}"
 
     annotations = {
