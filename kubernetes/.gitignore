@@ -8,7 +8,7 @@ kubeconfig.yaml
 ### Terraform ###
 # Local .terraform directories
 **/.terraform/*
-local.tfvars
+*local*.tfvars
 # .tfstate files
 *.tfstate
 *.tfstate.*

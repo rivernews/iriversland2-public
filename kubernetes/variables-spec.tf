@@ -1,7 +1,7 @@
 # https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files
 
 variable "do_cluster_name" {
-    default = "shaungc-digitalocean-cluster"
+    # default = "shaungc-digitalocean-cluster"
 }
 
 variable "app_container_image" {}

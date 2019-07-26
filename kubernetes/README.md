@@ -3,6 +3,7 @@
 - Install `terraform`
 - Install `doctl`, the cli tool for digitalocean.
     - Initialize auths for do, like `doctl auth init`
+- Run `export KUBECONFIG=kubeconfig.yaml`.
 
 ## Pitfalls
 
