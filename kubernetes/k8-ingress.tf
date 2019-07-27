@@ -108,10 +108,10 @@ resource "helm_release" "project-external-dns" {
     name  = "registry"
     value = "txt"
   }
-  #   set {
-  #     name  = "txt-owner-id"
-  #     value = "${data.aws_route53_zone.selected.zone_id}"
-  #   }
+    set {
+      name  = "txt-owner-id"
+      value = "google-site-verification=E0yvL3DSuVCidTSdHUHMQWONt1iZYWXVqCVRkn4gQTQ"
+    }
 
   set {
     name  = "policy"
