@@ -104,10 +104,10 @@ resource "helm_release" "project-external-dns" {
     name  = "domainFilters[0]"
     value = "${var.managed_k8_external_dns_domain}"
   }
-  #   set {
-  #     name  = "registry"
-  #     value = "txt"
-  #   }
+  set {
+    name  = "registry"
+    value = "txt"
+  }
   #   set {
   #     name  = "txt-owner-id"
   #     value = "${data.aws_route53_zone.selected.zone_id}"
@@ -183,7 +183,7 @@ resource "kubernetes_service" "app-static-assets" {
 
     port {
       name        = "http"
-      protocol = "TCP"
+      protocol    = "TCP"
       port        = "80" # make this service visible to other services by this port; https://stackoverflow.com/a/49982009/9814131
       target_port = "80" # the port where your application is running on the container
     }
@@ -199,11 +199,11 @@ resource "kubernetes_ingress" "project-app-static-assets-ingress-resource" {
     namespace = "${kubernetes_service.app.metadata.0.namespace}"
 
     annotations = {
-      "kubernetes.io/ingress.class" = "nginx"
-      "nginx.ingress.kubernetes.io/rewrite-target" = "/$2"
-      "nginx.ingress.kubernetes.io/upstream-vhost" = "${var.app_frontend_static_assets_dns_name}"
+      "kubernetes.io/ingress.class"                      = "nginx"
+      "nginx.ingress.kubernetes.io/rewrite-target"       = "/$2"
+      "nginx.ingress.kubernetes.io/upstream-vhost"       = "${var.app_frontend_static_assets_dns_name}"
       "nginx.ingress.kubernetes.io/from-to-www-redirect" = "true"
-      "nginx.ingress.kubernetes.io/use-regex" = "true"
+      "nginx.ingress.kubernetes.io/use-regex"            = "true"
     }
   }
 
