@@ -35,6 +35,6 @@ echo We have $(getconf _NPROCESSORS_ONLN) cpu cores, we can spin up $((2 * $(get
 # --workers=$((2 * $(getconf _NPROCESSORS_ONLN) + 1)) \
 # --bind 0.0.0.0:8000
 
-CPU_CORES_NUM=$(getconf _NPROCESSORS_ONLN)
-WORKERS_NUM=$((   2 * $(${CPU_CORES_NUM}) + 1   ))
+WORKERS_NUM=$((2 * $(getconf _NPROCESSORS_ONLN) + 1))
+
 gunicorn django_backend.wsgi:application --workers=${WORKERS_NUM} --bind 0.0.0.0:8000

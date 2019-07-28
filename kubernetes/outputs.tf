@@ -18,8 +18,8 @@ output "planned_app_deployed_domain" {
   value = "http://${var.app_deployed_domain}"
 }
 
-output "kubernetes_secret__app_credentials" {
-  value = kubernetes_secret.app_credentials.data
+output "app_credentials" {
+  value = local.app_secret_key_value_pairs
 }
 
 output "app_image_used" {
