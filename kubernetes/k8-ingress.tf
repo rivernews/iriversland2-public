@@ -63,11 +63,6 @@ resource "helm_release" "project-nginx-ingress" {
 
 # based on SO answer: https://stackoverflow.com/a/55968709/9814131
 # format for `set` refer to official repo README: https://github.com/helm/charts/tree/master/stable/external-dns
-# provider "aws" {
-#   region     = "${var.aws_region}"
-#   access_key = "${var.aws_access_key}"
-#   secret_key = "${var.aws_secret_key}"
-# }
 # data "aws_route53_zone" "selected" {
 #   name         = "${var.managed_route53_zone_name}"
 #   private_zone = false

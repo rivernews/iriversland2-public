@@ -93,6 +93,7 @@ locals {
 }
 
 # k8 official doc on dockerconfigjson: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line
+# terraform doc: https://www.terraform.io/docs/providers/kubernetes/r/secret.html
 resource "kubernetes_secret" "dockerhub_secret" {
   metadata {
     name = "dockerhub-secret"
