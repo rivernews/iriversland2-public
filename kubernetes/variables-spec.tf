@@ -2,6 +2,9 @@
 variable "project_name" {}
 
 variable "app_container_image" {}
+variable "app_container_image_tag" {
+    description = "Lookup the image tags here: https://hub.docker.com/r/shaungc/iriversland2-django/tags"
+}
 
 variable "cicd_namespace" {}
 

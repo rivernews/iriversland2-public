@@ -21,3 +21,7 @@ output "planned_app_deployed_domain" {
 output "kubernetes_secret__app_credentials" {
   value = kubernetes_secret.app_credentials.data
 }
+
+output "app_image_used" {
+  value = "${var.app_container_image}:${var.app_container_image_tag}"
+}

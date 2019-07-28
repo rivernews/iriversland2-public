@@ -36,7 +36,7 @@ resource "kubernetes_deployment" "app" {
 
         container {
           name  = "${var.app_name}"
-          image = "${var.app_container_image}"
+          image = "${var.app_container_image}:${var.app_container_image_tag}"
 
           # terraform official doc: https://www.terraform.io/docs/providers/kubernetes/r/deployment.html#image_pull_policy
           # private image registry: https://stackoverflow.com/questions/49639280/kubernetes-cannot-pull-image-from-private-docker-image-repository
@@ -47,10 +47,18 @@ resource "kubernetes_deployment" "app" {
           }
 
           # refer to env in kubernetes_secret: https://gist.github.com/troyharvey/4506472732157221e04c6b15e3b3f094
-          env_from {
-            secret_ref {
-              name = kubernetes_secret.app_credentials.metadata.0.name
-            }
+        #   env_from {
+        #     secret_ref {
+        #       name = kubernetes_secret.app_credentials.metadata.0.name
+        #     }
+        #   }
+
+          dynamic "env" {
+              for_each = local.app_secret_key_value_pairs
+              content {
+                  name = env.key
+                  value = env.value
+              }
           }
 
           #   resources {
@@ -121,14 +129,14 @@ data "aws_ssm_parameter" "app_credentials" {
 }
 
 # terraform doc: https://www.terraform.io/docs/providers/kubernetes/r/secret.html
-resource "kubernetes_secret" "app_credentials" {
-  metadata {
-    name = "app-${var.app_name}-credentials"
-    namespace = "${kubernetes_service_account.cicd.metadata.0.namespace}"
-  }
-  # k8 doc: https://github.com/kubernetes/community/blob/c7151dd8dd7e487e96e5ce34c6a416bb3b037609/contributors/design-proposals/auth/secrets.md#secret-api-resource
-  # default type is opaque, which represents arbitrary user-owned data.
-  type = "Opaque"
+# resource "kubernetes_secret" "app_credentials" {
+#   metadata {
+#     name = "app-${var.app_name}-credentials"
+#     namespace = "${kubernetes_service_account.cicd.metadata.0.namespace}"
+#   }
+#   # k8 doc: https://github.com/kubernetes/community/blob/c7151dd8dd7e487e96e5ce34c6a416bb3b037609/contributors/design-proposals/auth/secrets.md#secret-api-resource
+#   # default type is opaque, which represents arbitrary user-owned data.
+#   type = "Opaque"
 
-  data = local.app_secret_key_value_pairs
-}
+#   data = local.app_secret_key_value_pairs
+# }
