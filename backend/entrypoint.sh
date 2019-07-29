@@ -30,11 +30,13 @@ python manage.py migrate
 
 # echo Starting gunicorn...
 # how many workers: https://stackoverflow.com/questions/15979428/what-is-the-appropriate-number-of-gunicorn-workers-for-each-amazon-instance-type
-echo We have $(getconf _NPROCESSORS_ONLN) cpu cores, we can spin up $((2 * $(getconf _NPROCESSORS_ONLN) + 1)) django workers...
+CPU_CORE_NUM=$(getconf _NPROCESSORS_ONLN)
+WORKERS_NUM=$((2 * $(getconf _NPROCESSORS_ONLN) + 1))
+echo We have ${CPU_CORE_NUM} cpu cores, we can spin up ${WORKERS_NUM} django workers...
 # gunicorn django_server.wsgi:application --forwarded-allow-ips="*" \
 # --workers=$((2 * $(getconf _NPROCESSORS_ONLN) + 1)) \
 # --bind 0.0.0.0:8000
 
-WORKERS_NUM=$((2 * $(getconf _NPROCESSORS_ONLN) + 1))
+
 
 gunicorn django_backend.wsgi:application --workers=${WORKERS_NUM} --bind 0.0.0.0:8000
