@@ -57,10 +57,11 @@ if is_production():
 else:
     ALLOWED_HOSTS = ['*']
 
-if is_production():
-    SECURE_SSL_REDIRECT = False # TODO: set to True when ssl available
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+# TODO: uncomment below when ssl available
+# if is_production():
+#     SECURE_SSL_REDIRECT = True 
+#     SESSION_COOKIE_SECURE = True
+#     CSRF_COOKIE_SECURE = True
 
 
 # Application definition
