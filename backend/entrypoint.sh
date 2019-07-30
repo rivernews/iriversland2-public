@@ -27,8 +27,8 @@ python manage.py migrate
 # since we are hosting static files on s3, we no longer need to do this every time
 # IMPORTANT: only need to run this LOCALLY whenever angular code update 
 # django will handle file upload to s3
-# python manage.py collectstatic --clear --no-input
-# python manage.py collectstatic --no-input
+# python manage.py collectstatic --clear --noinput
+# python manage.py collectstatic --noinput
 
 # echo Starting gunicorn...
 # how many workers: https://stackoverflow.com/questions/15979428/what-is-the-appropriate-number-of-gunicorn-workers-for-each-amazon-instance-type
