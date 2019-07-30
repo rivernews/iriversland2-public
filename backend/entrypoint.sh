@@ -25,7 +25,7 @@
 python manage.py migrate
 
 # since we are hosting static files on s3, we no longer need to do this every time
-python manage.py collectstatic --clear --noinput
+python manage.py collectstatic --clear --no-input
 python manage.py collectstatic --no-input
 
 # echo Starting gunicorn...
