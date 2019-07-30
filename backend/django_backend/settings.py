@@ -39,16 +39,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-print("INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}".format(DEBUG, SECRET_KEY))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if is_production():
     DEBUG = False
 else:
     DEBUG = True
+print("INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}".format(DEBUG, SECRET_KEY))
+print("INFO: print all env...")
+print(os.environ)
 
 if is_production():
-    ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
+    # ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['*']
 
