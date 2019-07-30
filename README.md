@@ -1,5 +1,7 @@
 # Iriversland2
 
+[![CircleCI](https://circleci.com/gh/rivernews/iriversland2-public/tree/master.svg?style=svg)](https://circleci.com/gh/rivernews/iriversland2-public/tree/master)
+
 This is the public-facing repository for my personal website which contains my portfolio, case study and bio.
 
 ## Update

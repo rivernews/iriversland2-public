@@ -219,8 +219,8 @@ MEDIA_FILES_BUCKET_NAME = 'iriversland2-media'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # already using elastic beanstalk handling static in S3 so don't bother
 # But when not using elastic beanstalk, we have to config ourselves using S3
 # see https://docs.djangoproject.com/en/2.2/howto/static-files/deployment/
-# STATICFILES_STORAGE = 'django_backend.custom_storages.StaticStorage'
-STATICFILES_STORAGE = 'django_backend.custom_storages.MediaStorage'
+STATICFILES_STORAGE = 'django_backend.custom_storages.StaticStorage'
+# STATICFILES_STORAGE = 'django_backend.custom_storages.MediaStorage'
 STATIC_FILES_BUCKET_NAME = 'iriversland2-static'
 
 # bucket permission control
