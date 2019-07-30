@@ -45,18 +45,20 @@ if is_production():
     DEBUG = False
 else:
     DEBUG = True
+
+# TODO: delete below
 print("INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}".format(DEBUG, SECRET_KEY))
 print("INFO: print all env...")
 print(os.environ)
 
 if is_production():
     # ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['*'] # TODO: set to some stable value
 else:
     ALLOWED_HOSTS = ['*']
 
 if is_production():
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False # TODO: set to True when ssl available
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
