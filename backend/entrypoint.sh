@@ -39,6 +39,8 @@ echo We have ${CPU_CORE_NUM} cpu cores, we can spin up ${WORKERS_NUM} django wor
 # --workers=$((2 * $(getconf _NPROCESSORS_ONLN) + 1)) \
 # --bind 0.0.0.0:8000
 
+echo INFO: "test if env exists... EMAIL_HOST_USER=${EMAIL_HOST_USER}"
 
+DJANGO_SETTINGS_MODULE=django_backend.settings
 
 gunicorn django_backend.wsgi:application --workers=1 --bind 0.0.0.0:8000
