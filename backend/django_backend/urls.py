@@ -36,6 +36,7 @@ router.register(r'highlighted-case-studies', views.HighlightedCaseStudyViewSet)
 urlpatterns = [
     url(r'^admin-cool/', include(admin.site.urls)),
     url(r'^django-health-check/$', BlogViews.HealthCheckView.as_view(), name='django-health-check'),
+    url(r'^fail-test/$', BlogViews.FailView.as_view(), name='fail-test'),
 
     url(r'^report', BlogViews.EmailView.as_view(), name='report'),
     url(r'^recaptcha/$', BlogViews.ContactMeView.as_view(), name='recaptcha'),

@@ -13,6 +13,10 @@ from blog.models import CaseStudy, Post
 
 import json
 
+class FailView(View):
+    def get(self, request):
+        raise Exception("This is a fail test to verify DEBUG mode.")
+
 class HealthCheckView(View):
     def get(self, request):
         return JsonResponse({

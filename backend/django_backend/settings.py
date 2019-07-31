@@ -74,6 +74,9 @@ LOGGING = {
         'mail_admins': {
             'level': 'WARNING',
             'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'conosle': {
+            'class': 'logging.StreamHandler',
         }
     },
     'loggers': {
