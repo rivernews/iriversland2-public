@@ -41,6 +41,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 if is_production():
     # TODO: change to False once finish server debugging.
     DEBUG = True
@@ -64,6 +65,28 @@ else:
 #     SESSION_COOKIE_SECURE = True
 #     CSRF_COOKIE_SECURE = True
 
+# Logging: https://docs.djangoproject.com/en/2.2/topics/logging/
+# SO: https://stackoverflow.com/a/22035737/9814131
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'WARNING',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'WARNING',
+        },
+    }
+}
 
 # Application definition
 
@@ -282,3 +305,5 @@ EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = int(os.environ['EMAIL_PORT'])
 EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX = '[Test mail]'
+
+ADMINS = [('Web Administrator', EMAIL_HOST_USER)]
