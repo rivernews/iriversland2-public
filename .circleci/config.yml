@@ -66,6 +66,7 @@ jobs:
             echo "tf var image tag is ${TF_VAR_app_container_image_tag}"
             TF_VAR_app_container_image_tag=${CIRCLE_SHA1}
             echo "tf var image tag is ${TF_VAR_app_container_image_tag}"
+            env
             terraform plan
 
 workflows:
