@@ -41,9 +41,9 @@ jobs:
     environment:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
-    working_directory: ~/terraform/terraform-provisioning # curl github repo and untar generates this directory
+    # working_directory: ~/terraform
     steps:
-      - checkout # retrieves the code from GitHub
+      # - checkout # retrieves the code from GitHub
       - run:
           name: Fetch Terraform Code
           working_directory: ~/terraform
@@ -53,6 +53,7 @@ jobs:
             ls -l
       - run:
           name: Initiate Terraform
+          working_directory: ~/terraform/terraform-provisioning
           command: |
             ls -l
             echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
