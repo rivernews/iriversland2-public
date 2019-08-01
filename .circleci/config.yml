@@ -59,6 +59,8 @@ jobs:
           command: |
             env
             terraform plan
+            source $BASH_ENV
+            env
       - run:
           name: Apply Terraform
           command: |
