@@ -59,10 +59,10 @@ jobs:
             ls -l
             chmod +x init-backend-cicd.sh
             sh ./init-backend-cicd.sh
+            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
       - run:
           name: Plan Terraform
           command: |
-            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
             terraform plan
 
 workflows:
