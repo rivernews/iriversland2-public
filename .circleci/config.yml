@@ -17,18 +17,17 @@ jobs:
     steps:
       - checkout # retrieves the code from GitHub
       - setup_remote_docker # sets up a remote, isolated environment for each build. This is required before you use any docker command inside a job step.
-      - run: echo dummy
-      # - run:
-      #     name: Build Docker image
-      #     command: |
-      #       docker build -f prod.Dockerfile -t $IMAGE_NAME:latest .
-      # - run:
-      #     name: Push Docker Image
-      #     command: |
-      #       echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-      #       docker tag $IMAGE_NAME:latest $IMAGE_NAME:$CIRCLE_SHA1
-      #       docker push $IMAGE_NAME:latest
-      #       docker push $IMAGE_NAME:$CIRCLE_SHA1
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -f prod.Dockerfile -t $IMAGE_NAME:latest .
+      - run:
+          name: Push Docker Image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker tag $IMAGE_NAME:latest $IMAGE_NAME:$CIRCLE_SHA1
+            docker push $IMAGE_NAME:latest
+            docker push $IMAGE_NAME:$CIRCLE_SHA1
   
   deploy:
     docker:
@@ -36,11 +35,9 @@ jobs:
     environment:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
-      TF_VAR_app_container_image_tag: bacb274958387223b5e7eb0c446dde39d7a82f80
-      # TF_VAR_app_container_image_tag: ${CIRCLE_SHA1}
     working_directory: ~/terraform/terraform-provisioning # set default directory to cloned github repo directory
     steps:
-      # - checkout # retrieves the code from GitHub
+      # - checkout # since we're pulling from anothe github repo we'll skip checkout
       - run:
           name: Fetch Terraform Code
           working_directory: ~/terraform
@@ -54,18 +51,18 @@ jobs:
             ls -l
             chmod +x init-backend-cicd.sh
             sh ./init-backend-cicd.sh
-            echo 'export TF_VAR_app_container_image_tag__test="${CIRCLE_SHA1}"' >> $BASH_ENV # not working!
+            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV # not working!
             env
       - run:
           name: Plan Terraform
           command: |
-            env
+            source $BASH_ENV # this is necessary when using env var you set during `run:`
             terraform plan
-            source $BASH_ENV
             env
       - run:
           name: Apply Terraform
           command: |
+            source $BASH_ENV # this is necessary when using env var you set during `run:`
             terraform apply -auto-approve
 
 # circleci doc: https://circleci.com/docs/2.0/workflows/#fan-outfan-in-workflow-example
