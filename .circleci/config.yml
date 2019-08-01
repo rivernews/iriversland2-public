@@ -31,7 +31,8 @@ jobs:
   
   deploy:
     docker:
-      - image: hashicorp/terraform:light
+      # https://hub.docker.com/r/hashicorp/terraform/tags
+      - image: hashicorp/terraform:0.12.6
     environment:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
