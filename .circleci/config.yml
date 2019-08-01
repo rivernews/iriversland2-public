@@ -52,16 +52,16 @@ jobs:
             git clone ${TF_REMOTE_GIT_REPO}
             ls -l
       - run:
-          name: Initiate Terraform
+          name: Initialize Terraform
           working_directory: ~/terraform/terraform-provisioning
           command: |
             ls -l
-            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
             chmod +x init-backend-cicd.sh
             sh ./init-backend-cicd.sh
       - run:
           name: Plan Terraform
           command: |
+            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
             terraform plan
 
 workflows:
