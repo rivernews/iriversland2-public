@@ -59,7 +59,12 @@ jobs:
           command: |
             env
             terraform plan
+      - run:
+          name: Apply Terraform
+          command: |
+            terraform apply -auto-approve
 
+# circleci doc: https://circleci.com/docs/2.0/workflows/#fan-outfan-in-workflow-example
 workflows:
   version: 2
   build-master:
