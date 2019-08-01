@@ -15,25 +15,19 @@ jobs:
       <<: *base_environment
     working_directory: ~/app
     steps:
-      # - checkout # retrieves the code from GitHub
-      # - setup_remote_docker # sets up a remote, isolated environment for each build. This is required before you use any docker command inside a job step.
+      - checkout # retrieves the code from GitHub
+      - setup_remote_docker # sets up a remote, isolated environment for each build. This is required before you use any docker command inside a job step.
       - run:
-          name: Setup dynamic environment variables 
-          # circleci dynammic env, see https://circleci.com/docs/2.0/env-vars/#interpolating-environment-variables-to-set-other-environment-variables
-          # terraform env, see https://www.terraform.io/docs/configuration/variables.html#environment-variables
+          name: Build Docker image
           command: |
-            echo 'export TF_VAR_app_container_image="${IMAGE_NAME}"' >> $BASH_ENV
-      # - run:
-      #     name: Build Docker image
-      #     command: |
-      #       docker build -f prod.Dockerfile -t $IMAGE_NAME:latest .
-      # - run:
-      #     name: Push Docker Image
-      #     command: |
-      #       echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-      #       docker tag $IMAGE_NAME:latest $IMAGE_NAME:$CIRCLE_SHA1
-      #       docker push $IMAGE_NAME:latest
-      #       docker push $IMAGE_NAME:$CIRCLE_SHA1
+            docker build -f prod.Dockerfile -t $IMAGE_NAME:latest .
+      - run:
+          name: Push Docker Image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker tag $IMAGE_NAME:latest $IMAGE_NAME:$CIRCLE_SHA1
+            docker push $IMAGE_NAME:latest
+            docker push $IMAGE_NAME:$CIRCLE_SHA1
   
   deploy:
     docker:
@@ -42,17 +36,15 @@ jobs:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
       TF_VAR_app_container_image_tag: ${CIRCLE_SHA1}
-    # working_directory: ~/terraform
-    working_directory: ~/terraform/terraform-provisioning
+    working_directory: ~/terraform/terraform-provisioning # set default directory to cloned github repo directory
     steps:
       # - checkout # retrieves the code from GitHub
       - run:
           name: Fetch Terraform Code
           working_directory: ~/terraform
           command: |
-            # curl -sL https://github.com/rivernews/terraform-provisioning/archive/master.tar.gz | tar xz
-            rm -rf terraform-provisioning
-            git clone ${TF_REMOTE_GIT_REPO}
+            rm -rf terraform-provisioning # avoid git clone complaining directory already exists
+            git clone ${TF_REMOTE_GIT_REPO} # tf image has no curl, so just use git
             ls -l
       - run:
           name: Initialize Terraform
@@ -60,13 +52,11 @@ jobs:
             ls -l
             chmod +x init-backend-cicd.sh
             sh ./init-backend-cicd.sh
-            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
+            echo 'export TF_VAR_app_container_image_tag__test="${CIRCLE_SHA1}"' >> $BASH_ENV # not working!
+            env
       - run:
           name: Plan Terraform
           command: |
-            echo "tf var image tag is ${TF_VAR_app_container_image_tag}"
-            TF_VAR_app_container_image_tag=${CIRCLE_SHA1}
-            echo "tf var image tag is ${TF_VAR_app_container_image_tag}"
             env
             terraform plan
 
