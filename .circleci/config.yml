@@ -2,12 +2,17 @@ version: 2.1
 
 # yaml basic and advance: https://circleci.com/docs/2.0/writing-yaml/#section=configuration
 
+# sharing data between jobs: https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
+
+base_environment: &base_environment
+  IMAGE_NAME: shaungc/iriversland2-django
+
 jobs:
   build:
     docker:
       - image: circleci/buildpack-deps:stretch
     environment:
-      IMAGE_NAME: shaungc/iriversland2-django
+      <<: *base_environment
     working_directory: ~/app
     steps:
       - checkout # retrieves the code from GitHub
@@ -29,6 +34,34 @@ jobs:
             docker tag $IMAGE_NAME:latest $IMAGE_NAME:$CIRCLE_SHA1
             docker push $IMAGE_NAME:latest
             docker push $IMAGE_NAME:$CIRCLE_SHA1
+  
+  deploy:
+    docker:
+      - image: hashicorp/terraform:light
+    environment:
+      <<: *base_environment
+      TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
+      TF_WORKSPACE: ~/terraform/terraform-provisioning
+    working_directory: ~/terraform
+    steps:
+      - checkout # retrieves the code from GitHub
+      - run:
+          name: Fetch Terraform Code
+          command: |
+            git clone ${TF_REMOTE_GIT_REPO}
+            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
+      - run:
+          name: Initiate Terraform
+          command: |
+            cd ${TF_WORKSPACE}
+            chmod +x init-backend-cicd.sh
+            sh ./init-backend-cicd.sh
+      - run:
+          name: Plan Terraform
+          command: |
+            cd ${TF_WORKSPACE}
+            terraform plan
+
 workflows:
   version: 2
   build-master:
@@ -37,3 +70,6 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy:
+          requires:
+            - build
