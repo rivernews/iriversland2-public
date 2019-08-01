@@ -41,6 +41,7 @@ jobs:
     environment:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
+      TF_VAR_app_container_image_tag: ${CIRCLE_SHA1}
     # working_directory: ~/terraform
     working_directory: ~/terraform/terraform-provisioning
     steps:
