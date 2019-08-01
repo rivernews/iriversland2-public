@@ -42,6 +42,7 @@ jobs:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
     # working_directory: ~/terraform
+    working_directory: ~/terraform/terraform-provisioning
     steps:
       # - checkout # retrieves the code from GitHub
       - run:
@@ -49,11 +50,11 @@ jobs:
           working_directory: ~/terraform
           command: |
             # curl -sL https://github.com/rivernews/terraform-provisioning/archive/master.tar.gz | tar xz
+            rm -rf terraform-provisioning
             git clone ${TF_REMOTE_GIT_REPO}
             ls -l
       - run:
           name: Initialize Terraform
-          working_directory: ~/terraform/terraform-provisioning
           command: |
             ls -l
             chmod +x init-backend-cicd.sh
