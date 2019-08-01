@@ -15,14 +15,14 @@ jobs:
       <<: *base_environment
     working_directory: ~/app
     steps:
-      - checkout # retrieves the code from GitHub
+      # - checkout # retrieves the code from GitHub
       # - setup_remote_docker # sets up a remote, isolated environment for each build. This is required before you use any docker command inside a job step.
-      # - run:
-      #     name: Setup dynamic environment variables 
-      #     # circleci dynammic env, see https://circleci.com/docs/2.0/env-vars/#interpolating-environment-variables-to-set-other-environment-variables
-      #     # terraform env, see https://www.terraform.io/docs/configuration/variables.html#environment-variables
-      #     command: |
-      #       echo 'export TF_VAR_app_container_image="${IMAGE_NAME}"' >> $BASH_ENV
+      - run:
+          name: Setup dynamic environment variables 
+          # circleci dynammic env, see https://circleci.com/docs/2.0/env-vars/#interpolating-environment-variables-to-set-other-environment-variables
+          # terraform env, see https://www.terraform.io/docs/configuration/variables.html#environment-variables
+          command: |
+            echo 'export TF_VAR_app_container_image="${IMAGE_NAME}"' >> $BASH_ENV
       # - run:
       #     name: Build Docker image
       #     command: |
@@ -41,15 +41,15 @@ jobs:
     environment:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
-      TF_WORKSPACE: ~/terraform/terraform-provisioning
-    working_directory: ~/terraform/terraform-provisioning-master # curl github repo and untar generates this directory
+    working_directory: ~/terraform/terraform-provisioning # curl github repo and untar generates this directory
     steps:
       - checkout # retrieves the code from GitHub
       - run:
           name: Fetch Terraform Code
           working_directory: ~/terraform
           command: |
-            curl -sL https://github.com/rivernews/terraform-provisioning/archive/master.tar.gz | tar xz
+            # curl -sL https://github.com/rivernews/terraform-provisioning/archive/master.tar.gz | tar xz
+            git clone ${TF_REMOTE_GIT_REPO}
             ls -l
       - run:
           name: Initiate Terraform
