@@ -14,6 +14,18 @@ The site is currently taken down for cost reasons. This single site which uses A
 
 I'm finding a way to manage the cost while searching for other hosting alternatives. Several articles indicate that using Application Load Balancer will be much cheaper, based on the cost calculation model of AWS. I will plan to spin up the server again in the near future.
 
+## Database
+
+As of August 4, 2019, the app switches from using AWS RDS to Heroku.
+
+Since it's a production site now, database contents needs to be backup. According to the [heroku doc](https://devcenter.heroku.com/articles/heroku-postgres-backups):
+
+- Backup the database: go to web portal, click `Create Manual Backup`. Max of 2 backups.
+    - Can also consider downloading the backup to get rid of the 2 backup limitation, like storing it on S3. But currently, will be just using the manual 2 backups.
+    - Future work: add some sort of scheduled automation to do the backup.
+- [Restore](heroku pg:backups:restore b101 DATABASE_URL --app sushi): 
+    - Will need heroku cli. (of course `psql` may work too, but just for sake of simplicity)
+    - `heroku pg:backups:restore <the name of backup like b101> DATABASE_URL --app <the app name like iriversland2-public>`
 
 # Reference
 
