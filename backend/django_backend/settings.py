@@ -20,15 +20,11 @@ try:
     from .s3_credentials import *
     from .other_credentials import *
     
-    PRODUCTION = False  
+    DEBUG = True
 
 except ImportError:
-    # deployed on amz eb
-    PRODUCTION = True
-
-def is_production():
-    return PRODUCTION
-
+    # deployed on amz eb / k8
+    DEBUG = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,24 +36,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-if is_production():
-    # TODO: change to False once finish server debugging.
-    DEBUG = True
-else:
-    DEBUG = True
 
 # TODO: delete below
 print("INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}".format(DEBUG, SECRET_KEY))
 print("INFO: print all env...")
 print(os.environ)
 
-if is_production():
-    # ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
-    ALLOWED_HOSTS = ['*'] # TODO: set to some stable value
-else:
-    ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*'] # TODO: set to some stable value
 
 # TODO: uncomment below when ssl available
 # if is_production():
