@@ -24,7 +24,7 @@ try:
 
 except ImportError:
     # deployed on amz eb / k8
-    DEBUG = True # TODO: set this to False for prod server
+    DEBUG = False # TODO: set this to False for prod server
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
