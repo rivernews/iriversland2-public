@@ -56,5 +56,7 @@ urlpatterns = [
 
     # let front end handle the rest of all routings
     # url(r'^.*$', serve, kwargs={'path': 'index.html'}), # use static to serve templates
-    url(r'^(?P<path>.*)$', RedirectView.as_view(url='/static/%(path)s')) # change for k8 production
+    # url(r'^$', RedirectView.as_view(url='/static/index.html')) # change for k8 production
+    # url(r'^(?P<path>.*)$', RedirectView.as_view(url='/static/%(path)s')) # change for k8 production
+    url(r'^(?P<path>.*)$', RedirectView.as_view(url='/static/index.html')) # change for k8 production
 ]
