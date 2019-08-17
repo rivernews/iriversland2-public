@@ -65,11 +65,6 @@ jobs:
           command: |
             source $BASH_ENV # this is necessary when using env var you set during `run:`
             terraform apply -auto-approve
-      - run:
-          name: Prep for Slack Orb Environment
-          command: |
-            apk add bash
-      
   
   report:
     docker:
@@ -80,7 +75,7 @@ jobs:
           success_message: "*Published - Iriversland*\nIriversland is ready to be accessed (http://shaungc.com).\nHashed url (http://${CIRCLE_SHA1}.shaungc.com).\nDjango health check (http://${CIRCLE_SHA1}.shaungc.com/django-health-check/).\nDjango fail test (http://${CIRCLE_SHA1}.shaungc.com/fail-test/).\nDjango admin portal (http://${CIRCLE_SHA1}.shaungc.com/admin-cool/)."
 
 
- 
+# doc: https://circleci.com/orbs/registry/orb/circleci/slack
 orbs:
   slack: circleci/slack@3.3.0
 version: 2.1
