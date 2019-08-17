@@ -23,8 +23,11 @@ try:
     DEBUG = True
 
 except ImportError:
-    # deployed on amz eb / k8
+    # deployed on amz eb / k8)
     DEBUG = False # TODO: set this to False for prod server
+
+if 'DEBUG' in os.environ:
+    DEBUG = bool(os.environ['BEBUG'])
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,8 +41,8 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 
 # TODO: delete below
-print("INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}".format(DEBUG, SECRET_KEY))
-print("INFO: print all env...")
+print('INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}'.format(DEBUG, SECRET_KEY))
+print('INFO: print all env...')
 print(os.environ)
 
 # ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
@@ -229,34 +232,50 @@ STATIC_URL = '/static/'
 
 # CKEDitor & S3 storage for Media files (Images, Files)
 # https://simpleisbetterthancomplex.com/tutorial/2017/08/01/how-to-setup-amazon-s3-in-a-django-project.html
+#
+#
+#
 
-# for media files
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'django_backend.custom_storages.MediaStorage'
-MEDIA_FILES_BUCKET_NAME = 'iriversland2-media'
-
-# for static file
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # already using elastic beanstalk handling static in S3 so don't bother
-# But when not using elastic beanstalk, we have to config ourselves using S3
-# see https://docs.djangoproject.com/en/2.2/howto/static-files/deployment/
-STATICFILES_STORAGE = 'django_backend.custom_storages.StaticStorage'
-# STATICFILES_STORAGE = 'django_backend.custom_storages.MediaStorage'
-STATIC_FILES_BUCKET_NAME = 'iriversland2-static'
-
-# bucket permission control
-AWS_AUTO_CREATE_BUCKET = True
-AWS_DEFAULT_ACL = 'public-read'
-    
-AWS_STORAGE_BUCKET_NAME = MEDIA_FILES_BUCKET_NAME
+# s3 meta config
 AWS_S3_REGION_NAME = os.environ.get('AWS_REGION', 'us-east-2') 
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % MEDIA_FILES_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
+AWS_IS_GZIPPED = True
 
-# AWS_LOCATION = 'static'
+
+# for media files to upload to s3
+# used in api/view.py
+DEFAULT_FILE_STORAGE = 'django_backend.custom_storages.MediaStorage'
+MEDIA_FILES_BUCKET_NAME = 'iriversland2-media'
+
+
+# for static file to upload to s3
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+STATICFILES_STORAGE = 'django_backend.custom_storages.StaticStorage'
+# used in `custom_storage.py`
+STATIC_FILES_BUCKET_NAME = 'iriversland2-static'
+
+
+# bucket permission control
+# if such bucket not existed, will automatically create
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_AUTO_CREATE_BUCKET = True
+AWS_DEFAULT_ACL = 'public-read'
+AWS_STORAGE_BUCKET_NAME = MEDIA_FILES_BUCKET_NAME
+# AWS_LOCATION = 'static' # prefix for files uploaded
+
+
+# serving static files via s3
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront  
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % STATIC_FILES_BUCKET_NAME
+
+
+
 
 # ckeditor settings
+#
+#
 MEDIA_URL = 'http://%s/' % AWS_S3_CUSTOM_DOMAIN
 MEDIA_ROOT = '/'
 CKEDITOR_UPLOAD_PATH = 'editor_uploads/'

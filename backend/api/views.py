@@ -26,6 +26,8 @@ from rest_framework import status
 
 from rest_framework.views import APIView
 
+# usage of default_storage
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
 from django.core.files.storage import default_storage
 import os
 from django.conf import settings
