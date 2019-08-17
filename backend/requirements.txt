@@ -7,7 +7,8 @@ django-cors-headers==2.4.0
 djangorestframework-jwt==1.11.0
 
 # psycopg2==2.7.5
-psycopg2>=2.8,<2.9 # https://stackoverflow.com/a/55418419/9814131
+# psycopg2>=2.8,<2.9 # https://stackoverflow.com/a/55418419/9814131
+psycopg2-binary
 
 # for AWS Elastic Beanstalk 
 #

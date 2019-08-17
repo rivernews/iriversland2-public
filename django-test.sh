@@ -4,9 +4,10 @@ dj_static=
 
 if [[ $1 == 'a' ]]
 then
-    ng_build="ng build"
+    cd frontend
+    ng_build="$(npm bin)/ng build"
+    cd ..
     dj_static="source recollect_static.sh"
-
 elif [[ $2 == 'wo-ng' ]] 
 then
     ng_build=
