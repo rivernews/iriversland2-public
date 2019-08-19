@@ -19,12 +19,10 @@ try:
     from .database_credentials import *
     from .s3_credentials import *
     from .other_credentials import *
-    
     DEBUG = True
-
 except ImportError:
-    # deployed on amz eb / k8)
-    DEBUG = False # TODO: set this to False for prod server
+    # deployed on amz eb or k8)
+    DEBUG = False
 
 if 'DEBUG' in os.environ:
     DEBUG = bool(os.environ['BEBUG'])
@@ -40,19 +38,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 
-# TODO: delete below
-print('INFO: special prod debug mode; DEBUG={}, SECRET_KEY={}'.format(DEBUG, SECRET_KEY))
-print('INFO: print all env...')
-print(os.environ)
+# wildcard for subdomain
+# django doc: https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = ['.shaungc.com'] if not DEBUG else []
 
-# ALLOWED_HOSTS = ['shaungc.com', 'www.shaungc.com', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['*'] # TODO: set to some stable value
-
-# TODO: uncomment below when ssl available
-# if is_production():
-#     SECURE_SSL_REDIRECT = True 
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
+# uncomment below when ssl available
+if not DEBUG:
+    # SECURE_SSL_REDIRECT = True 
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Logging: https://docs.djangoproject.com/en/2.2/topics/logging/
 # SO: https://stackoverflow.com/a/22035737/9814131
@@ -225,6 +219,8 @@ STATICFILES_DIRS = [
 
 # django output static. collectstatic will put the collected static files in STATIC_ROOT. www is for Elastic Beanstalk
 # see https://docs.djangoproject.com/en/2.2/howto/static-files/deployment/
+# but if you setup s3 to handle static files (django-storage), then this line is useless and won't create `www/static` when you run `collectstatic`, even on local laptop dev
+# setting `AWS_S3_CUSTOM_DOMAIN` will let django just upload static files to s3 when running `collectstatic`
 STATIC_ROOT = os.path.join(BASE_DIR, 'www', 'static')
 
 STATIC_URL = '/static/'

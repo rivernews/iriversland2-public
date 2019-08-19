@@ -22,8 +22,7 @@ I'm finding a way to manage the cost while searching for other hosting alternati
 
 ## What's left undone
 
-- Adding https to secure the website
-- See other [TODOs and improvements](https://github.com/rivernews/terraform-provisioning/blob/master/docs/progress.md) near the ➡️ icons.
+Check out the [Roadmap v0.6](https://github.com/rivernews/iriversland2-public/wiki/Roadmap-v0.6) wiki page.
 
 ## Database
 
