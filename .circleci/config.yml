@@ -75,7 +75,7 @@ jobs:
       - image: circleci/buildpack-deps:curl
     steps:
       - slack/status:
-          mentions: 'D7J537NF9,'
+          mentions: 'here,'
           success_message: "*Published - Iriversland*\nIriversland is ready to be accessed (http://shaungc.com).\nHash: ${CIRCLE_SHA1}\nHashed url (http://${CIRCLE_SHA1}.shaungc.com).\nDjango health check (http://${CIRCLE_SHA1}.shaungc.com/django-health-check/).\nDjango fail test (http://${CIRCLE_SHA1}.shaungc.com/fail-test/).\nDjango admin portal (http://${CIRCLE_SHA1}.shaungc.com/admin-cool/)."
 
 
