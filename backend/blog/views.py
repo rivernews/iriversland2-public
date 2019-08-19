@@ -20,7 +20,7 @@ class FailView(View):
 class HealthCheckView(View):
     def get(self, request):
         return JsonResponse({
-            'message': 'django health check ok --cicd-test--2.'
+            'message': 'django health check ok cert---.'
         }, status=200)
 
 class EmailReportMixin(object):

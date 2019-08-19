@@ -36,20 +36,20 @@ jobs:
   deploy:
     docker:
       # https://hub.docker.com/r/hashicorp/terraform/tags
-      - image: hashicorp/terraform:0.12.6
+      - image: shaungc/terraform-kubectl-image
     environment:
       <<: *base_environment
       TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
-    working_directory: ~/terraform/terraform-provisioning # set default directory to cloned github repo directory
+    working_directory: /terraform # set default directory to cloned github repo directory
     steps:
       # - checkout # since we're pulling from anothe github repo we'll skip checkout
-      - run:
-          name: Fetch Terraform Code
-          working_directory: ~/terraform
-          command: |
-            rm -rf terraform-provisioning # avoid git clone complaining directory already exists
-            git clone ${TF_REMOTE_GIT_REPO} # tf image has no curl, so just use git
-            ls -l
+      # - run:
+      #     name: Fetch Terraform Code
+      #     working_directory: ~/terraform
+      #     command: |
+      #       rm -rf terraform-provisioning # avoid git clone complaining directory already exists
+      #       git clone ${TF_REMOTE_GIT_REPO} # tf image has no curl, so just use git
+      #       ls -l
       - run:
           name: Initialize Terraform
           command: |
