@@ -5,28 +5,28 @@
 # debian
 # FROM node:10-stretch-slim as ng_stage_image
 # alpine
-FROM node:10-alpine as ng_stage_image
+# FROM node:10-alpine as ng_stage_image
 
-ENV IMAGE_PROJECT_DIR /usr/src
+# ENV IMAGE_PROJECT_DIR /usr/src
 
-# Copy project
+# # Copy project
 
-WORKDIR ${IMAGE_PROJECT_DIR}
+# WORKDIR ${IMAGE_PROJECT_DIR}
 
-RUN mkdir -p ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist && \
-    mkdir -p ${IMAGE_PROJECT_DIR}/frontend
+# RUN mkdir -p ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist && \
+#     mkdir -p ${IMAGE_PROJECT_DIR}/frontend
 
-# Install dependencies
-# for dev purpose, copy all including credentials
-# for prod, you want to exclude credentials. Consider using a `.dockerignore` file. See https://stackoverflow.com/questions/43747776/copy-with-docker-but-with-exclusion
-COPY frontend frontend
+# # Install dependencies
+# # for dev purpose, copy all including credentials
+# # for prod, you want to exclude credentials. Consider using a `.dockerignore` file. See https://stackoverflow.com/questions/43747776/copy-with-docker-but-with-exclusion
+# COPY frontend frontend
 
-WORKDIR /usr/src/frontend
+# WORKDIR /usr/src/frontend
 
-RUN npm i && npm rebuild node-sass
+# RUN npm i && npm rebuild node-sass
 
-# only build dev; for production please add --prod
-RUN $(npm bin)/ng build --prod
+# # only build dev; for production please add --prod
+# RUN $(npm bin)/ng build --prod
 
 
 
@@ -53,8 +53,8 @@ WORKDIR ${IMAGE_PROJECT_DIR}/backend
 
 # Copy project
 COPY backend .
-COPY --from=ng_stage_image ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist \
-    ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist
+# COPY --from=ng_stage_image ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist \
+#     ${IMAGE_PROJECT_DIR}/backend/frontend-bundle-dist
 
 # Install dependencies
 # debian
