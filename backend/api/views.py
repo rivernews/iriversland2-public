@@ -38,6 +38,11 @@ from django.db.models import Q
 
 from rest_framework import serializers
 
+from django.views.generic.base import TemplateView
+
+class APIIndexView(TemplateView):
+    template_name = "api/index.html"
+
 class FileUploadView(APIView):
     permission_classes = (AllowOptionsIsAdminUser,)
     
