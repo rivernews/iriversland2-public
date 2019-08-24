@@ -1,1 +1,0 @@
-cd frontend && $(npm bin)/ng serve -o
