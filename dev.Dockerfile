@@ -46,8 +46,8 @@ COPY backend .
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-COPY --from=ng_stage_image ${PROJECT_DIR}/backend/frontend-bundle-dist ${PROJECT_DIR}/backend/frontend-bundle-dist
-RUN chmod +x ./recollect_static.sh && ./recollect_static.sh
+# COPY --from=ng_stage_image ${PROJECT_DIR}/backend/frontend-bundle-dist ${PROJECT_DIR}/backend/frontend-bundle-dist
+# RUN chmod +x ./recollect_static.sh && ./recollect_static.sh
 
 # Entry point
 

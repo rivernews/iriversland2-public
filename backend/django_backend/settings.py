@@ -211,10 +211,10 @@ AUTH_USER_MODEL = 'account.CustomUser'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ANGULAR_APP_DIR = os.path.join(BASE_DIR, 'frontend-bundle-dist') # django input static
+# ANGULAR_APP_DIR = os.path.join(BASE_DIR, 'frontend-bundle-dist') # django input static
 
 STATICFILES_DIRS = [
-    os.path.join(ANGULAR_APP_DIR), # additional path for django to collect static
+    # os.path.join(ANGULAR_APP_DIR), # additional path for django to collect static
 ]
 
 # django output static. collectstatic will put the collected static files in STATIC_ROOT. www is for Elastic Beanstalk
