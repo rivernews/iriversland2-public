@@ -1,4 +1,4 @@
-# Iriversland2 Backend API
+# Iriversland2 RESTful API Backend Service
 
 [![CircleCI](https://circleci.com/gh/rivernews/iriversland2-api.svg?style=shield)](https://circleci.com/gh/rivernews/iriversland2-api)
 
