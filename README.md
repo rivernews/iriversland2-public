@@ -1,4 +1,4 @@
-# Iriversland2
+# Iriversland2 Backend API
 
 [![CircleCI](https://circleci.com/gh/rivernews/iriversland2-public/tree/master.svg?style=shield)](https://circleci.com/gh/rivernews/iriversland2-public/tree/master)
 
