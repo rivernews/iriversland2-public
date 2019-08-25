@@ -2,24 +2,24 @@
 ##
 ##
 
-FROM node:10-stretch-slim as ng_stage_image
+# FROM node:10-stretch-slim as ng_stage_image
 
-# Copy project
+# # Copy project
 
-WORKDIR /usr/src
+# WORKDIR /usr/src
 
-# for dev purpose, copy all including credentials
-# for prod, you want to exclude credentials. Consider using a `.dockerignore` file. See https://stackoverflow.com/questions/43747776/copy-with-docker-but-with-exclusion
-COPY . .
+# # for dev purpose, copy all including credentials
+# # for prod, you want to exclude credentials. Consider using a `.dockerignore` file. See https://stackoverflow.com/questions/43747776/copy-with-docker-but-with-exclusion
+# COPY . .
 
-# Install dependencies
+# # Install dependencies
 
-WORKDIR /usr/src/frontend
+# WORKDIR /usr/src/frontend
 
-RUN npm i && npm rebuild node-sass
+# RUN npm i && npm rebuild node-sass
 
-# only build dev; for production please add --prod
-RUN $(npm bin)/ng build
+# # only build dev; for production please add --prod
+# RUN $(npm bin)/ng build
 
 ## Stage 2: Django ##
 ##
@@ -40,7 +40,7 @@ WORKDIR ${PROJECT_DIR}/backend
 
 # Copy project
 
-COPY backend .
+COPY backend/requirements.txt requirements.txt
 
 # Install dependencies
 

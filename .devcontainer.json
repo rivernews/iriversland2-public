@@ -3,10 +3,15 @@
     // "dockerFile": "dev.Dockerfile",
     // "name": "dev iriversland2",
     
-    "dockerFile": "prod.Dockerfile",
-    "name": "production iriversland2",
+    "dockerFile": "dev.Dockerfile",
+    "name": "dev iriversland2",
 
     "workspaceFolder": "/usr/src/backend",
+
+    "runArgs": [
+      "-v", "/Users/shaungc/Documents/repos/iriversland2-public:/usr/src"  
+    ],
+
     "extensions": [
         "ms-python.python",
     ],
@@ -20,6 +25,7 @@
     // In fact, the entrypoint in Dockerfile won't work neither in vscode.
     // "postCreateCommand": "~~python manage.py runserver 0.0.0.0:8000~~"
     "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "python.pythonPath": "/usr/local/bin/python",
     }
 }
