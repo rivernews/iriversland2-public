@@ -1,8 +1,15 @@
 # Iriversland2 Backend API
 
-[![CircleCI](https://circleci.com/gh/rivernews/iriversland2-public/tree/master.svg?style=shield)](https://circleci.com/gh/rivernews/iriversland2-public/tree/master)
+[![CircleCI](https://circleci.com/gh/rivernews/iriversland2-api.svg?style=shield)](https://circleci.com/gh/rivernews/iriversland2-api)
 
 This is the public-facing repository for my personal website which contains my portfolio, case study and bio.
+
+This repository is part of my personal website project. Also see other repositories:
+
+- **[Iriversland2 SPA](https://github.com/rivernews/iriversland2-spa)**: the frontend code base, using Angular.
+- **[Iriversland2 Backend API](https://github.com/rivernews/iriversland2-api)**: (this repository) the backend RESTful API in Django.
+- **[Iriversland2 Kubernetes](https://github.com/rivernews/iriversland2-kubernetes)**: infrastructure as code provisioning the Kubernetes cluster for the backend server.
+
 
 ## Update
 
