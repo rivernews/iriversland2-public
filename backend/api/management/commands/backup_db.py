@@ -70,18 +70,18 @@ class Command(BaseCommand):
                 self.stdout.write('INFO: successfully backup database.')
                 mail_admins(
                     subject='DB Backup Success',
-                    message='DB backup succeed. Check it out on S3 console: https://s3.console.aws.amazon.com/s3/home?region=us-east-2 '
+                    message=f'DB backup succeed. Check it out on S3 console: https://s3.console.aws.amazon.com/s3/buckets/{self.DB_BACKUP_DESTINATION_BUCKET_NAME}/?region=us-east-2'
                 )
             else:
                 self.stdout.write(f'ERROR: error occured, see above message.')
                 mail_admins(
                     subject='DB Backup Failed',
-                    message=f'DB backup failed, here is more message: bucket name `{self.DB_BACKUP_DESTINATION_BUCKET_NAME}`, exists={exists}, accessible={accessible}. Check on the S3 console: https://s3.console.aws.amazon.com/s3/home?region=us-east-2'
+                    message=f'DB backup failed, here is more message: bucket name `{self.DB_BACKUP_DESTINATION_BUCKET_NAME}`, exists={exists}, accessible={accessible}. Check on the S3 console: https://s3.console.aws.amazon.com/s3/buckets/{self.DB_BACKUP_DESTINATION_BUCKET_NAME}/?region=us-east-2'
                 )
         
         except Exception as e:
             self.stdout.write(f'ERROR: {repr(e)}')
             mail_admins(
                 subject='DB Backup Failed',
-                message='DB backup failed, here is more message: ' + repr(e),
+                message='DB backup failed, here is more message: ' + repr(e) + f'; ==== end of error message ====; S3 bucket console: https://s3.console.aws.amazon.com/s3/buckets/{self.DB_BACKUP_DESTINATION_BUCKET_NAME}/?region=us-east-2',
             )
