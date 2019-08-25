@@ -12,7 +12,8 @@ import os
 # django command: https://docs.djangoproject.com/en/2.2/howto/custom-management-commands/
 class Command(BaseCommand):
     OUTPUT_FILENAME = 'db_backup.json'
-    DB_BACKUP_DESTINATION_BUCKET_NAME = 'iriversland2-db-backup'
+    DB_BACKUP_DESTINATION_BUCKET_NAME = 'iriversland2-backup'
+    DB_BACKUP_PATH = 'db-backup'
 
     def handle(self, *args, **options):
         try:
@@ -23,6 +24,9 @@ class Command(BaseCommand):
 
             # boto3 bucket
             # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#bucket
+
+
+            self.stdout.write('INFO: starting Django command backup database...')
 
 
             hashed_filename = f'{datetime.datetime.utcnow().isoformat()}__{self.OUTPUT_FILENAME}'
@@ -61,7 +65,7 @@ class Command(BaseCommand):
                 self.stdout.write('INFO: confirm bucket exists and is accessible.')
                 db_backup_bucket.upload_file(
                     hashed_filename,
-                    hashed_filename,
+                    f'{self.DB_BACKUP_PATH}/{hashed_filename}',
                 )
                 self.stdout.write('INFO: successfully backup database.')
                 mail_admins(
