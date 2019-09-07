@@ -25,7 +25,7 @@ except ImportError:
     DEBUG = False
 
 if 'DEBUG' in os.environ:
-    DEBUG = bool(os.environ['BEBUG'])
+    DEBUG = bool(os.environ['DEBUG'])
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,7 +40,8 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # wildcard for subdomain
 # django doc: https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['.shaungc.com'] if not DEBUG else []
+# in case, you can specify '.shaungc.com' to allow all subdomain
+ALLOWED_HOSTS = os.environ.get('DEPLOYED_DOMAIN', '').split(',') if not DEBUG else []
 
 # uncomment below when ssl available
 if not DEBUG:
