@@ -309,6 +309,6 @@ EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = int(os.environ['EMAIL_PORT'])
 EMAIL_USE_TLS = True
-EMAIL_SUBJECT_PREFIX = '[Django Server] '
+EMAIL_SUBJECT_PREFIX = '[Iriversland2 API Server Notifier] '
 
 ADMINS = [('Web Administrator', EMAIL_HOST_USER)]
