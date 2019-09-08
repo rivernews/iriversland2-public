@@ -220,6 +220,10 @@ CORS_ORIGIN_WHITELIST = tuple(filter(bool, [ # filter: https://stackoverflow.com
 # and needs to use CORS_ORIGIN_WHITELIST instead
 # CORS_ORIGIN_ALLOW_ALL = True 
 
+# Adds header as 'Access-Control-Allow-Credentials': 'true'
+# Must turn it on when frontend is sending credentials (withCredentials: true in frontend's request header)
+CORS_ALLOW_CREDENTIALS = True
+
 # ANGULAR_APP_DIR = os.path.join(BASE_DIR, 'frontend-bundle-dist') # django input static
 
 STATICFILES_DIRS = [
