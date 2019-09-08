@@ -41,7 +41,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 # wildcard for subdomain
 # django doc: https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts
 # in case, you can specify '.shaungc.com' to allow all subdomain
-ALLOWED_HOSTS = os.environ.get('DEPLOYED_DOMAIN', '').split(',') if not DEBUG else []
+ALLOWED_HOSTS = list(filter(bool, os.environ.get('DEPLOYED_DOMAIN', '').split(','))) if not DEBUG else []
 
 # uncomment below when ssl available
 if not DEBUG:
