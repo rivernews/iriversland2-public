@@ -44,5 +44,5 @@ env
 
 DJANGO_SETTINGS_MODULE=django_backend.settings
 
-# python manage.py runserver 0.0.0.0:8000
-gunicorn django_backend.wsgi:application --workers=${WORKERS_NUM} --bind 0.0.0.0:8000
+python manage.py runserver 0.0.0.0:8000
+# gunicorn django_backend.wsgi:application --workers=${WORKERS_NUM} --bind 0.0.0.0:8000
