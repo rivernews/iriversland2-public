@@ -211,10 +211,10 @@ AUTH_USER_MODEL = 'account.CustomUser'
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 # Django CORS header settings for frontend
-CORS_ORIGIN_WHITELIST = tuple(filter(bool, tuple( # filter: https://stackoverflow.com/questions/3845423/remove-empty-strings-from-a-list-of-strings
+CORS_ORIGIN_WHITELIST = tuple(filter(bool, [ # filter: https://stackoverflow.com/questions/3845423/remove-empty-strings-from-a-list-of-strings
     'localhost:4200', # for frontend Angular developement server
     os.environ.get('CORS_DOMAIN_WHITELIST') # frontend hosted on github page
-)))
+]))
 
 # This sets the header to '*'. if frontend are sending credentials, you cannot use this.
 # and needs to use CORS_ORIGIN_WHITELIST instead
