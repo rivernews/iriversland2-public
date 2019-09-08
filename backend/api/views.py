@@ -29,7 +29,7 @@ from rest_framework.views import APIView
 # usage of default_storage
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
 # from django.core.files.storage import default_storage
-from django_backend.custom_storage import MediaStorage
+from django_backend.custom_storages import MediaStorage
 import os
 from django.conf import settings
 
