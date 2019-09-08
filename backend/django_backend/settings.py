@@ -218,8 +218,6 @@ CORS_ORIGIN_WHITELIST = tuple(filter(bool, [ # filter: https://stackoverflow.com
     ] + os.environ.get('CORS_DOMAIN_WHITELIST', '').split(',') # frontend hosted on github page
 ))
 
-print('CORS WHITELIST:', CORS_ORIGIN_WHITELIST)
-
 # This sets the header to '*'. if frontend are sending credentials, you cannot use this.
 # and needs to use CORS_ORIGIN_WHITELIST instead
 # CORS_ORIGIN_ALLOW_ALL = True 
