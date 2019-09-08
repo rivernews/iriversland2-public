@@ -27,8 +27,6 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 # usage of default_storage
-# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
-# from django.core.files.storage import default_storage
 from django_backend.custom_storages import MediaStorage
 import os
 from django.conf import settings
@@ -69,22 +67,11 @@ class FileUploadView(APIView):
             '{}-{}'.format(work_created_date, work_id),
             file_obj.name
         )
-
-        # Avoid overwriting existing file
+        
         media_storage = MediaStorage()
-
-        # if not default_storage.exists(file_path_with_directory):
-        #     default_storage.save(file_path_with_directory, file_obj)
-        #     file_url = default_storage.url(file_path_with_directory)
-
-        #     return Response({
-        #         'message': 'OK',
-        #         'fileUrl': file_url,
-        #     })
-        if not media_storage.exists(file_path_with_directory):
+        if not media_storage.exists(file_path_with_directory): # Avoid overwriting existing file
             media_storage.save(file_path_with_directory, file_obj)
             file_url = media_storage.url(file_path_with_directory)
-            print('\nfile url is ', file_url)
 
             return Response({
                 'message': 'OK',

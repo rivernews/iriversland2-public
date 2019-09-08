@@ -24,11 +24,12 @@
 # python manage.py makemigrations api
 python manage.py migrate
 
+# We now uses the server as a pure REST API so no static file needed at all (except admin portals)
 # since we are hosting static files on s3, we no longer need to do this every time
 # IMPORTANT: only need to run this LOCALLY whenever angular code update 
 # django will handle file upload to s3
 # python manage.py collectstatic --clear --noinput
-python manage.py collectstatic --noinput
+# python manage.py collectstatic --noinput
 
 # echo Starting gunicorn...
 # how many workers: https://stackoverflow.com/questions/15979428/what-is-the-appropriate-number-of-gunicorn-workers-for-each-amazon-instance-type
@@ -44,5 +45,5 @@ env
 
 DJANGO_SETTINGS_MODULE=django_backend.settings
 
-python manage.py runserver 0.0.0.0:8000
-# gunicorn django_backend.wsgi:application --workers=${WORKERS_NUM} --bind 0.0.0.0:8000
+# python manage.py runserver 0.0.0.0:8000
+gunicorn django_backend.wsgi:application --workers=${WORKERS_NUM} --bind 0.0.0.0:8000
