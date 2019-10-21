@@ -143,7 +143,7 @@ DATABASES = {
         'HOST': os.environ['RDS_HOSTNAME'],
         'PORT': os.environ['RDS_PORT'],
         'OPTIONS': {
-            'sslmode': 'require',
+            # 'sslmode': 'require', # using postgres in k8 cluster by localhost, all internal traffic so safe
         }
     }
 }
