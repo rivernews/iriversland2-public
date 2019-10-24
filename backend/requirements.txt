@@ -6,6 +6,8 @@ djangorestframework==3.9.1
 django-cors-headers==2.4.0
 djangorestframework-jwt==1.11.0
 
+django-cacheops<=4.3
+
 # psycopg2==2.7.5
 # psycopg2>=2.8,<2.9 # https://stackoverflow.com/a/55418419/9814131
 psycopg2-binary

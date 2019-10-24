@@ -148,6 +148,23 @@ DATABASES = {
     }
 }
 
+
+# https://github.com/Suor/django-cacheops
+CACHEOPS_REDIS = {
+    'host': os.getenv('REDIS_HOST', 'localhost'), # redis-server is on same machine
+    'port': os.getenv('REDIS_PORT', '6379'),        # default redis port
+    'db': int(os.getenv('CACHEOPS_REDIS_DB', '3')),             # SELECT non-default redis database
+                         # using separate redis db or redis instance
+                         # is highly recommended
+
+    'socket_timeout': 5,   # connection timeout in seconds, optional
+}
+
+CACHEOPS = {
+    'blog.*': {'ops': {'get', 'fetch'}, 'timeout': 24*60*60} # a day
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
