@@ -7,17 +7,18 @@ class LogPermissionStatusMixin(EmailReportMixin, object):
         if not request.user.is_superuser and not 'localhost' in request.get_host() :        
             # TODO: change to store visitor info in database
             self.send_feedback_notice_email(request)
-        
-        # print('============ {}: {}'.format(request.method, request.build_absolute_uri()))
-        # print('header  --%s--' % request.META.get('HTTP_AUTHORIZATION'))
-        # print('AllowAny:', AllowAny.has_permission(self, request, view))
-        # print('IsAuthenticatedOrReadOnly:', IsAuthenticatedOrReadOnly.has_permission(self, request, view))
-        # print('IsAuthenticated:', IsAuthenticated.has_permission(self, request, view))
-        # print('IsAdminUser:', IsAdminUser.has_permission(self, request, view))
-        # print('request.user', request.user)
-        # print('request user is auth', request.user.is_authenticated)
-        # print('request user is staff', request.user.is_staff)
-        # print('request user is super', request.user.is_superuser)
+    
+    def print_debug_message(self, request):
+        print('============ {}: {}'.format(request.method, request.build_absolute_uri()))
+        print('header  --%s--' % request.META.get('HTTP_AUTHORIZATION'))
+        print('AllowAny:', AllowAny.has_permission(self, request, view))
+        print('IsAuthenticatedOrReadOnly:', IsAuthenticatedOrReadOnly.has_permission(self, request, view))
+        print('IsAuthenticated:', IsAuthenticated.has_permission(self, request, view))
+        print('IsAdminUser:', IsAdminUser.has_permission(self, request, view))
+        print('request.user', request.user)
+        print('request user is auth', request.user.is_authenticated)
+        print('request user is staff', request.user.is_staff)
+        print('request user is super', request.user.is_superuser)
 
 
 class AllowOptionsIsAuthenticatedOrReadOnly(LogPermissionStatusMixin, IsAuthenticatedOrReadOnly):

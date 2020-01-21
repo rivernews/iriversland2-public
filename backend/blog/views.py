@@ -163,10 +163,8 @@ class EmailReportMixin(object):
                     if ip == '':
                         continue
                     
-                    # j = requests.get('https://ipinfo.io/{}/json'.format(ip), params={'token': os.environ['IPINFO_API_TOKEN'] }).json()
-
                     # ipstack free plan does not allow https so just use http
-                    j = requests.get('http://http://api.ipstack.com/check'.format(ip), params={
+                    j = requests.get('http://api.ipstack.com/check'.format(ip), params={
                         'access_key': os.environ['IPSTACK_API_TOKEN'],
                         'fields': 'city, region_name, country_name, zip, ip, hostname, type, continent_name, latitude, longitude'
                     }).json()
