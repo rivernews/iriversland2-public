@@ -5,7 +5,9 @@ from blog.views import EmailReportMixin
 class LogPermissionStatusMixin(EmailReportMixin, object):
     def LogPermissionStatus(self, request, view):
         if not request.user.is_superuser and not 'localhost' in request.get_host() :        
+            # TODO: change to store visitor info in database
             self.send_feedback_notice_email(request)
+        
         # print('============ {}: {}'.format(request.method, request.build_absolute_uri()))
         # print('header  --%s--' % request.META.get('HTTP_AUTHORIZATION'))
         # print('AllowAny:', AllowAny.has_permission(self, request, view))

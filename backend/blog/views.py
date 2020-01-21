@@ -162,7 +162,15 @@ class EmailReportMixin(object):
                 for ip in ip_list:
                     if ip == '':
                         continue
-                    j = requests.get('https://ipinfo.io/{}/json'.format(ip), params={'token': os.environ['IPINFO_API_TOKEN'] }).json()
+                    
+                    # j = requests.get('https://ipinfo.io/{}/json'.format(ip), params={'token': os.environ['IPINFO_API_TOKEN'] }).json()
+
+                    # ipstack free plan does not allow https so just use http
+                    j = requests.get('http://http://api.ipstack.com/check'.format(ip), params={
+                        'access_key': os.environ['IPSTACK_API_TOKEN'],
+                        'fields': 'city, region_name, country_name, zip, ip, hostname, type, continent_name, latitude, longitude'
+                    }).json()
+
                     visitor_info['IP_address_x_forwarded_for_{}'.format(i)] = j
                     i += 1
 
@@ -200,7 +208,7 @@ class EmailView(EmailReportMixin, View):
                 print('getting api key')
                 return JsonResponse({
                     'message': 'OK',
-                    'data': os.environ['IPSTACK_API_TOKEN'],
+                    'data': os.environ['IPINFO_API_TOKEN'],
                 })
             elif query == 'report_visit':
                 print('ready to send report email')
