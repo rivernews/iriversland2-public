@@ -163,13 +163,18 @@ class EmailReportMixin(object):
                     if ip == '':
                         continue
                     
-                    # ipstack free plan does not allow https so just use http
-                    j = requests.get('http://api.ipstack.com/check'.format(ip), params={
+                    # ip stack api free plan does not allow https so just use http
+                    stack_api = requests.get('http://api.ipstack.com/{}'.format(ip), params={
                         'access_key': os.environ['IPSTACK_API_TOKEN'],
                         'fields': 'city, region_name, country_name, zip, ip, hostname, type, continent_name, latitude, longitude'
                     }).json()
 
-                    visitor_info['IP_address_x_forwarded_for_{}'.format(i)] = j
+                    # ip info api
+                    info_api = requests.get('https://ipinfo.io/{}/json'.format(ip), params={'token': os.environ['IPINFO_API_TOKEN'] }).json()
+
+                    visitor_info['IP_address_x_forwarded_for_{}_stack_api'.format(i)] = stack_api
+                    visitor_info['IP_address_x_forwarded_for_{}_info_api'.format(i)] = info_api
+
                     i += 1
 
             else:
