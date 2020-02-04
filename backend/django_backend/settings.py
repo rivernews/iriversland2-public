@@ -137,11 +137,11 @@ WSGI_APPLICATION = 'django_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
+        'NAME': os.environ['SQL_DATABASE'],
+        'USER': os.environ['SQL_USER'],
+        'PASSWORD': os.environ['SQL_PASSWORD'],
+        'HOST': os.environ['SQL_HOST'],
+        'PORT': os.environ['SQL_PORT'],
         'OPTIONS': {
             # 'sslmode': 'require', # using postgres in k8 cluster by localhost, all internal traffic so safe
         }
