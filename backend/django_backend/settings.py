@@ -45,7 +45,7 @@ ALLOWED_HOSTS = list(filter(bool, os.environ.get('DEPLOYED_DOMAIN', '').split(',
 
 # uncomment below when ssl available
 if not DEBUG:
-    # SECURE_SSL_REDIRECT = True 
+    SECURE_SSL_REDIRECT = True 
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
