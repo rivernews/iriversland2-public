@@ -44,7 +44,9 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 ALLOWED_HOSTS = list(filter(bool, os.environ.get('DEPLOYED_DOMAIN', '').split(','))) if not DEBUG else []
 
 if not DEBUG:
-    SECURE_SSL_REDIRECT = False # TODO: turn on when uncomment below when ssl available
+    SECURE_SSL_REDIRECT = True # TODO: turn on when uncomment below when ssl available
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
