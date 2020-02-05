@@ -43,9 +43,8 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 # in case, you can specify '.shaungc.com' to allow all subdomain
 ALLOWED_HOSTS = list(filter(bool, os.environ.get('DEPLOYED_DOMAIN', '').split(','))) if not DEBUG else []
 
-# uncomment below when ssl available
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True 
+    SECURE_SSL_REDIRECT = False # TODO: turn on when uncomment below when ssl available
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
