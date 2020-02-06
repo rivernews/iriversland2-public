@@ -1,7 +1,6 @@
 version: 2.1
 
 # yaml basic and advance: https://circleci.com/docs/2.0/writing-yaml/#section=configuration
-
 # sharing data between jobs: https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
 
 base_environment: &base_environment
@@ -42,23 +41,13 @@ jobs:
   
   deploy:
     docker:
-      # https://hub.docker.com/r/hashicorp/terraform/tags
       - image: shaungc/terraform-kubectl-image
     environment:
       <<: *base_environment
-      # TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
-    # working_directory: /terraform # set default directory to cloned github repo directory
     working_directory: ~/backend/cicd
     steps:
       - checkout:
           path: ~/backend
-      # - run:
-      #     name: Fetch Terraform Code
-      #     working_directory: ~/terraform
-      #     command: |
-      #       rm -rf terraform-provisioning # avoid git clone complaining directory already exists
-      #       git clone ${TF_REMOTE_GIT_REPO} # tf image has no curl, so just use git
-      #       ls -l
       - run:
           name: Initialize Terraform
           command: |
@@ -80,6 +69,7 @@ jobs:
           name: Apply Terraform
           command: |
             source $BASH_ENV # this is necessary when using env var you set during `run:`
+            # make sure you also set the credentials via TF_VAR_...
             terraform apply -auto-approve -var="app_container_image_tag=${CIRCLE_SHA1}"
   
   report:
@@ -93,7 +83,6 @@ jobs:
 
 # circleci doc: https://circleci.com/docs/2.0/workflows/#fan-outfan-in-workflow-example
 workflows:
-  # version: 2
   build-master:
     jobs:
       - build:

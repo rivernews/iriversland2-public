@@ -2,9 +2,7 @@ variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "aws_region" {}
 
-variable "app_container_image_tag" {
-    default = "latest"
-}
+variable "app_container_image_tag" {}
 
 module "iriversland2_api" {
   source  = "rivernews/kubernetes-microservice/digitalocean"
