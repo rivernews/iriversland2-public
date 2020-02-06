@@ -50,7 +50,7 @@ jobs:
     # working_directory: /terraform # set default directory to cloned github repo directory
     working_directory: ~/backend/cicd
     steps:
-      - checkout
+      - checkout:
         path: ~/backend
       # - run:
       #     name: Fetch Terraform Code
