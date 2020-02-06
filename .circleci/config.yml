@@ -91,9 +91,9 @@ workflows:
           filters:
             branches:
               only: master
-      # - deploy:
-      #     requires:
-      #       - build
-      - report:
+      - deploy:
           requires:
             - build
+      - report:
+          requires:
+            - deploy
