@@ -44,7 +44,10 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 ALLOWED_HOSTS = list(filter(bool, os.environ.get('DEPLOYED_DOMAIN', '').split(','))) if not DEBUG else []
 
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True # TODO: turn on when uncomment below when ssl available
+    # Make sure you setup `SECURE_PROXY_SSL_HEADER` AND setup nginx or the web server in front of django before using this.
+    # You will need to have nginx set the proxy header `X_FORWARDED_PROTO` to `https` when client request is indeed https.
+    # If you don't configure nginx and django don't receive the header and perceive the request as insecure (http), as you turn `SECURE_SSL_REDIRECT` on, you will get an infinite loop: django will redirect all your request which makes another (https) request, and so on.
+    SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     SESSION_COOKIE_SECURE = True

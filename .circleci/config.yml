@@ -33,42 +33,45 @@ jobs:
             docker push $IMAGE_NAME:latest
             docker push $IMAGE_NAME:$CIRCLE_SHA1
   
-  # deploy:
-  #   docker:
-  #     # https://hub.docker.com/r/hashicorp/terraform/tags
-  #     - image: shaungc/terraform-kubectl-image
-  #   environment:
-  #     <<: *base_environment
-  #     TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
-  #   working_directory: /terraform # set default directory to cloned github repo directory
-  #   steps:
-  #     # - checkout # since we're pulling from anothe github repo we'll skip checkout
-  #     # - run:
-  #     #     name: Fetch Terraform Code
-  #     #     working_directory: ~/terraform
-  #     #     command: |
-  #     #       rm -rf terraform-provisioning # avoid git clone complaining directory already exists
-  #     #       git clone ${TF_REMOTE_GIT_REPO} # tf image has no curl, so just use git
-  #     #       ls -l
-  #     - run:
-  #         name: Initialize Terraform
-  #         command: |
-  #           ls -l
-  #           chmod +x init-backend-cicd.sh
-  #           sh ./init-backend-cicd.sh
-  #           echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV # not working!
-  #           env
-  #     - run:
-  #         name: Plan Terraform
-  #         command: |
-  #           source $BASH_ENV # this is necessary when using env var you set during `run:`
-  #           terraform plan
-  #           env
-  #     - run:
-  #         name: Apply Terraform
-  #         command: |
-  #           source $BASH_ENV # this is necessary when using env var you set during `run:`
-  #           terraform apply -auto-approve
+  deploy:
+    docker:
+      # https://hub.docker.com/r/hashicorp/terraform/tags
+      - image: shaungc/terraform-kubectl-image
+    environment:
+      <<: *base_environment
+      # TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
+    # working_directory: /terraform # set default directory to cloned github repo directory
+    working_directory: ~/app
+    steps:
+      - checkout
+      # - run:
+      #     name: Fetch Terraform Code
+      #     working_directory: ~/terraform
+      #     command: |
+      #       rm -rf terraform-provisioning # avoid git clone complaining directory already exists
+      #       git clone ${TF_REMOTE_GIT_REPO} # tf image has no curl, so just use git
+      #       ls -l
+      - run:
+          name: Initialize Terraform
+          command: |
+            cd cicd
+            ls -l
+            chmod +x init-backend-cicd.sh
+            sh ./init-backend-cicd.sh
+            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV # not working!
+            env
+      - run:
+          name: Plan Terraform
+          command: |
+            source $BASH_ENV # this is necessary when using env var you set during `run:`
+            env
+            terraform plan -var="app_container_image_tag=${CIRCLE_SHA1}"
+      - run:
+          name: Apply Terraform
+          command: |
+            source $BASH_ENV # this is necessary when using env var you set during `run:`
+            env
+            terraform apply -auto-approve -var="app_container_image_tag=${CIRCLE_SHA1}"
   
   report:
     docker:
