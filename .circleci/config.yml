@@ -51,7 +51,7 @@ jobs:
     working_directory: ~/backend/cicd
     steps:
       - checkout:
-        path: ~/backend
+          path: ~/backend
       # - run:
       #     name: Fetch Terraform Code
       #     working_directory: ~/terraform
@@ -67,10 +67,10 @@ jobs:
             sh ./init-backend-cicd.sh
             echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
       - run:
-        name: Validate Terraform
-        command: |
-          source $BASH_ENV # this is necessary when using env var you set during `run:`
-          terraform validate
+          name: Validate Terraform
+          command: |
+            source $BASH_ENV # this is necessary when using env var you set during `run:`
+            terraform validate
       - run:
           name: Plan Terraform
           command: |
