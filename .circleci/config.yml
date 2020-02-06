@@ -32,6 +32,13 @@ jobs:
             docker tag $IMAGE_NAME:latest $IMAGE_NAME:$CIRCLE_SHA1
             docker push $IMAGE_NAME:latest
             docker push $IMAGE_NAME:$CIRCLE_SHA1
+  report_build:
+    docker:
+      - image: circleci/buildpack-deps:curl
+    steps:
+      - slack/status:
+          mentions: 'here,'
+          success_message: "*Build success - Iriversland*\nIriversland build is ready.\nHash: ${CIRCLE_SHA1}"
   
   deploy:
     docker:
@@ -41,9 +48,10 @@ jobs:
       <<: *base_environment
       # TF_REMOTE_GIT_REPO: https://github.com/rivernews/terraform-provisioning.git
     # working_directory: /terraform # set default directory to cloned github repo directory
-    working_directory: ~/app
+    working_directory: ~/backend/cicd
     steps:
       - checkout
+        path: ~/backend
       # - run:
       #     name: Fetch Terraform Code
       #     working_directory: ~/terraform
@@ -54,23 +62,24 @@ jobs:
       - run:
           name: Initialize Terraform
           command: |
-            cd cicd
             ls -l
             chmod +x init-backend-cicd.sh
             sh ./init-backend-cicd.sh
-            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV # not working!
-            env
+            echo 'export TF_VAR_app_container_image_tag="${CIRCLE_SHA1}"' >> $BASH_ENV
+      - run:
+        name: Validate Terraform
+        command: |
+          source $BASH_ENV # this is necessary when using env var you set during `run:`
+          terraform validate
       - run:
           name: Plan Terraform
           command: |
             source $BASH_ENV # this is necessary when using env var you set during `run:`
-            env
             terraform plan -var="app_container_image_tag=${CIRCLE_SHA1}"
       - run:
           name: Apply Terraform
           command: |
             source $BASH_ENV # this is necessary when using env var you set during `run:`
-            env
             terraform apply -auto-approve -var="app_container_image_tag=${CIRCLE_SHA1}"
   
   report:
@@ -79,7 +88,7 @@ jobs:
     steps:
       - slack/status:
           mentions: 'here,'
-          success_message: "*Published - Iriversland*\nIriversland is ready to be accessed (http://api.shaungc.com).\nHash: ${CIRCLE_SHA1}\nHashed url (http://${CIRCLE_SHA1}.api.shaungc.com).\nDjango health check (http://${CIRCLE_SHA1}.api.shaungc.com/django-health-check/).\nDjango fail test (http://${CIRCLE_SHA1}.api.shaungc.com/fail-test/).\nDjango admin portal (http://${CIRCLE_SHA1}.api.shaungc.com/admin-cool/)."
+          success_message: "*Published - Iriversland*\nIriversland is ready to be accessed (https://api.shaungc.com).\nHash: ${CIRCLE_SHA1}\nDjango health check (https://api.shaungc.com/django-health-check/).\nDjango fail test (https://api.shaungc.com/fail-test/).\nDjango admin portal (https://api.shaungc.com/admin-cool/)."
 
 
 # circleci doc: https://circleci.com/docs/2.0/workflows/#fan-outfan-in-workflow-example
@@ -91,9 +100,12 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
+      - report_build:
           requires:
             - build
+      - deploy:
+          requires:
+            - report_build
       - report:
           requires:
             - deploy
