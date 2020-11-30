@@ -9,7 +9,7 @@ djangorestframework-jwt==1.11.0
 django-cacheops<=4.3
 
 # psycopg2==2.7.5
-# psycopg2>=2.8,<2.9 # https://stackoverflow.com/a/55418419/9814131
+psycopg2>=2.8,<2.9 # https://stackoverflow.com/a/55418419/9814131
 #
 # for local dev, devcontainer in docker is recommended, so OS version does not matter
 #
