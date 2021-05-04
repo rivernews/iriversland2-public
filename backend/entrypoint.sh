@@ -2,6 +2,8 @@
 
 set -ex
 
+export PGPASSWORD=$SQL_PASSWORD
+
 if psql -h $SQL_HOST -p $SQL_PORT -U $SQL_USER $SQL_DATABASE -tc "SELECT 1 FROM pg_database WHERE datname = 'iriversland2_database'" | grep -q 1; then
     echo "Database iriversland2_database already exist, will skip restore and just do a migrate"
     python manage.py migrate
