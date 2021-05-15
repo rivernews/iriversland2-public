@@ -6,6 +6,10 @@ variable "app_container_image_tag" {
   default = "latest"
 }
 
+data "aws_ssm_parameter" "kubernetes_cluster_name" {
+  name  = "//terraform-managed/iriversland2-kubernetes/cluster-name"
+}
+
 module "iriversland2_api" {
   source  = "rivernews/kubernetes-microservice/digitalocean"
   version = "v0.1.1"
@@ -13,7 +17,7 @@ module "iriversland2_api" {
   aws_region     = var.aws_region
   aws_access_key = var.aws_access_key
   aws_secret_key = var.aws_secret_key
-  cluster_name   = "project-shaungc-digitalocean-cluster"
+  cluster_name   = data.aws_ssm_parameter.kubernetes_cluster_name.value
 
   # app-specific config (microservice)
   app_label               = "iriversland2-api"
